@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @message.name %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @message.gender %>
+</p>
+
+<p>
+  <b>Phone number:</b>
+  <%= @message.phone_number %>
+</p>
+
+<p>
+  <b>Qq number:</b>
+  <%= @message.qq_number %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @message.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @message.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_message_path(@message) %> |
+<%= link_to 'Back', messages_path %>
