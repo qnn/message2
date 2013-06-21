@@ -11,3 +11,9 @@ class Message < ActiveRecord::Base
   validates :title, :length => { :maximum => 200 }
   validates :content, :length => { :maximum => 20000 }
 end
+
+class String
+  def gender_index
+    Message::USER_GENDER.index(self)
+  end
+end

@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :gender %><br />
-    <%= f.number_field :gender %>
+    <%= f.collection_select :gender, Message::USER_GENDER, :gender_index, :humanize, { :selected => 0 } %>
   </div>
   <div class="field">
     <%= f.label :phone_number %><br />
