@@ -16,7 +16,7 @@
 <% @messages.each do |message| %>
   <tr>
     <td><%= message.name %></td>
-    <td><%= message.gender %></td>
+    <td><%= Message::USER_GENDER.try(:[], message.gender) %></td>
     <td><%= message.phone_number %></td>
     <td><%= message.qq_number %></td>
     <td><%= message.title %></td>

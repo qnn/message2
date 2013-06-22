@@ -7,7 +7,7 @@
 
 <p>
   <b>Gender:</b>
-  <%= @message.gender %>
+  <%= Message::USER_GENDER.try(:[], @message.gender) %>
 </p>
 
 <p>
