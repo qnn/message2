@@ -1,4 +1,12 @@
 class MessagesController < ApplicationController
+
+  before_filter :check_priviledges, :except => [:new, :create]
+
+  def check_priviledges
+    not_found if !current_user.present?
+    not_found if current_user.role != "admin"
+  end
+
   # GET /messages
   # GET /messages.json
   def index
