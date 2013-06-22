@@ -7,7 +7,6 @@ Message2::Application.routes.draw do
       path_names: { new: 'sign_up' },
       controller: 'registrations',
       as: :user_registration do
-        get :cancel
       end
   end
 
