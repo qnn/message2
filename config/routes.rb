@@ -1,5 +1,15 @@
 Message2::Application.routes.draw do
-  devise_for :users
+  devise_for :users, skip: :registrations
+  devise_scope :user do # prevent users from creating and canceling accounts
+    resource :registration,
+      only: [:edit, :update],
+      path: 'users',
+      path_names: { new: 'sign_up' },
+      controller: 'registrations',
+      as: :user_registration do
+        get :cancel
+      end
+  end
 
   resources :messages
   root :to => "messages#new"
