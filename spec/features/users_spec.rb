@@ -36,4 +36,9 @@ feature "Admin has all priviledges" do
     click_link "Destroy"
     expect(page).to have_content "Message was successfully deleted."
   end
+
+  scenario "admin can see list of users" do
+    visit users_path
+    expect(page).to have_content "Listing users"
+  end
 end
