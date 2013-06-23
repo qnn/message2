@@ -123,7 +123,7 @@ feature "User can only create and read public/private messages" do
     click_button "Sign in"
   end
 
-  scenario "User want to read, update or delete public message" do
+  scenario "User wants to read, update or delete public message" do
     create_new_message
     message = Message.last
 
@@ -142,6 +142,10 @@ feature "User can only create and read public/private messages" do
 
     page.driver.submit :delete, message_path(message), {}
     page.status_code.should == 404
+  end
+
+  scenario "User wants to create, read, update or delete user" do
+    it_should_not_have_access_to_crud_user @user
   end
 end
 
@@ -171,25 +175,6 @@ feature "Visitors can only create message" do
   end
 
   scenario "Visitors want to create, read, update or delete user" do
-    visit users_path
-    page.status_code.should == 404
-
-    page.driver.submit :post, users_path, {}
-    page.status_code.should == 404
-
-    visit new_user_path
-    page.status_code.should == 404
-
-    visit edit_user_path(@user)
-    page.status_code.should == 404
-
-    visit user_path(@user)
-    page.status_code.should == 404
-
-    page.driver.submit :put, user_path(@user), {}
-    page.status_code.should == 404
-
-    page.driver.submit :delete, user_path(@user), {}
-    page.status_code.should == 404
+    it_should_not_have_access_to_crud_user @user
   end
 end
