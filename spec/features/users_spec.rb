@@ -88,4 +88,74 @@ feature "Admin has all priviledges" do
     click_link "Delete"
     expect(page).to have_content "You cannot delete admins with smaller ID than yours."
   end
+
+  scenario "admin can not change role if there will be no admins" do
+    # there is only one admin
+    visit edit_user_path(@admin.id)
+    select "User", :from => "Role"
+    click_button "Update User"
+    expect(page).to have_content "You can not change the role of this user. Because there will be no admins."
+
+    # create another user
+    username = "admin2"
+    password = "123456"
+    User.create([{ email: "test2@example.com", password: password, username: username, role:"admin" }])
+    admin2 = User.where("username = ?", username).first
+
+    # repeat previous action
+    # now you can change @admin's role while there is more than one admin
+    visit edit_user_path(@admin.id)
+    select "User", :from => "Role"
+    click_button "Update User"
+    expect(page).to have_content "User was successfully updated."
+  end
+end
+
+feature "Visitors can only create message" do
+  before :each do
+    create_new_message
+    @message = Message.last
+    @user = User.last
+  end
+
+  scenario "Visitors want to read, update or delete message" do
+    visit messages_path
+    page.status_code.should == 404
+
+    visit message_path(@message)
+    page.status_code.should == 404
+
+    visit edit_message_path(@message)
+    page.status_code.should == 404
+
+    # RackTest driver
+    page.driver.submit :put, message_path(@message), {}
+    page.status_code.should == 404
+
+    page.driver.submit :delete, message_path(@message), {}
+    page.status_code.should == 404
+  end
+
+  scenario "Visitors want to create, read, update or delete user" do
+    visit users_path
+    page.status_code.should == 404
+
+    page.driver.submit :post, users_path, {}
+    page.status_code.should == 404
+
+    visit new_user_path
+    page.status_code.should == 404
+
+    visit edit_user_path(@user)
+    page.status_code.should == 404
+
+    visit user_path(@user)
+    page.status_code.should == 404
+
+    page.driver.submit :put, user_path(@user), {}
+    page.status_code.should == 404
+
+    page.driver.submit :delete, user_path(@user), {}
+    page.status_code.should == 404
+  end
 end

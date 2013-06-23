@@ -1,4 +1,11 @@
 class UsersController < ApplicationController
+
+  before_filter :check_priviledges
+
+  def check_priviledges
+    redirect_to :status => 404 and return if !current_user.present? or current_user.role != "admin"
+  end
+
   # GET /users
   # GET /users.json
   def index
@@ -57,6 +64,12 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+
+    admin_count = User.where("role = ?", "admin").count
+    if (admin_count == 1 && @user.role == "admin" && params[:user][:role] != "admin")
+      redirect_to :back, notice: 'You can not change the role of this user. Because there will be no admins.'
+      return
+    end
 
     # don't change password if it is empty
     params[:user].delete :password if params[:user][:password].empty?
