@@ -41,4 +41,30 @@ feature "Admin has all priviledges" do
     visit users_path
     expect(page).to have_content "Listing users"
   end
+
+  scenario "admin can create, read, update and delete user" do
+    username = "CommanderShepard"
+    email = "shepard@normandy.com"
+    password = "shepard123"
+    visit new_user_path
+    select "User", :from => "Role"
+    fill_in "Username", :with => username
+    fill_in "Email", :with => email
+    fill_in "Password", :with => password
+    click_button "Create User"
+    expect(page).to have_content "User was successfully created."
+
+    expect(page).to have_content email
+    expect(page).to have_content username
+
+    username.reverse!
+    click_link "Edit"
+    select "Moderator", :from => "Role"
+    fill_in "Username", :with => username.reverse
+    click_button "Update User"
+    expect(page).to have_content "User was successfully updated."
+
+    click_link "Delete"
+    expect(page).to have_content "User was successfully deleted."
+  end
 end

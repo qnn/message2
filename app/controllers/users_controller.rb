@@ -58,6 +58,9 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
+    # don't change password if it is empty
+    params[:user].delete :password if params[:user][:password].empty?
+
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -76,7 +79,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to users_url, notice: 'User was successfully deleted.' }
       format.json { head :no_content }
     end
   end
