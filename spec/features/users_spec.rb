@@ -111,6 +111,40 @@ feature "Admin has all priviledges" do
   end
 end
 
+feature "User can only create and read public/private messages" do
+  before :each do
+    username = "user001"
+    password = "123456"
+    User.create([{ email: "user001@example.com", password: password, username: username, role:"user" }])
+    @user = User.where("username = ?", username).first
+    visit new_user_session_path
+    fill_in "Login", :with => username
+    fill_in "Password", :with => password
+    click_button "Sign in"
+  end
+
+  scenario "User want to read, update or delete public message" do
+    create_new_message
+    message = Message.last
+
+    visit messages_path
+    page.status_code.should == 200
+
+    visit message_path(message)
+    page.status_code.should == 200
+
+    visit edit_message_path(message)
+    page.status_code.should == 404
+
+    # RackTest driver
+    page.driver.submit :put, message_path(message), {}
+    page.status_code.should == 404
+
+    page.driver.submit :delete, message_path(message), {}
+    page.status_code.should == 404
+  end
+end
+
 feature "Visitors can only create message" do
   before :each do
     create_new_message
