@@ -50,6 +50,7 @@ class MessagesController < ApplicationController
   # GET /messages/1/edit
   def edit
     @message = Message.find(params[:id])
+    @visible_to = @message.flaggings.with_flag(:visible_to)
   end
 
   # POST /messages
@@ -72,6 +73,14 @@ class MessagesController < ApplicationController
   # PUT /messages/1.json
   def update
     @message = Message.find(params[:id])
+    flaggers = @message.flaggings.with_flag(:visible_to).select('flagger_id').map { |f| f.flagger_id.to_s } || []
+    visible_to = params[:visible_to] || []
+    (visible_to - flaggers).each do |user|
+      User.find(user).flag(@message, :visible_to)
+    end
+    (flaggers - visible_to).each do |user|
+      User.find(user).unflag(@message, :visible_to)
+    end
 
     respond_to do |format|
       if @message.update_attributes(params[:message])

@@ -32,6 +32,13 @@
     <%= f.label :content %><br />
     <%= f.text_area :content %>
   </div>
+  <div class="field">
+    <%= f.label :visible_to %><br />
+	<% User.all.each do |user| %>
+	<%= check_box_tag "visible_to[]", user.id, @visible_to.where("flagger_id = ?", user.id).present?, :id => "visible_to_#{user.id}" %>
+	<%= label_tag "visible_to_#{user.id}", "[#{user.role}] #{user.username} <#{user.email}>" %><br />
+	<% end %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

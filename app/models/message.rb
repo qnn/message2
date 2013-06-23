@@ -11,6 +11,8 @@ class Message < ActiveRecord::Base
   validates :qq_number, :length => { :maximum => 13, :minimum => 5, :allow_blank => true }
   validates :title, :length => { :maximum => 200 }
   validates :content, :length => { :maximum => 20000 }
+
+  make_flaggable :visible_to
 end
 
 class String
