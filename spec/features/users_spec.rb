@@ -107,7 +107,7 @@ feature "Admin has all priviledges" do
     visit edit_user_path(@admin.id)
     select "User", :from => "Role"
     click_button "Update User"
-    expect(page).to have_content "User was successfully updated."
+    expect(page).to have_content "You are no longer an admin."
   end
 end
 

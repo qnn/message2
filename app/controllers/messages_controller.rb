@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   before_filter :check_priviledges, :except => [:new, :create]
 
   def check_priviledges
-    redirect_to :status => 404 and return if !current_user.present? or current_user.role != "admin"
+    not_found and return if !current_user.present? or current_user.role != "admin"
   end
 
   # GET /messages

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :check_priviledges
 
   def check_priviledges
-    redirect_to :status => 404 and return if !current_user.present? or current_user.role != "admin"
+    not_found and return if !current_user.present? or current_user.role != "admin"
   end
 
   # GET /users
@@ -65,10 +65,15 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
+    force_log_out = false
     admin_count = User.where("role = ?", "admin").count
-    if (admin_count == 1 && @user.role == "admin" && params[:user][:role] != "admin")
-      redirect_to :back, notice: 'You can not change the role of this user. Because there will be no admins.'
-      return
+    if @user.role == "admin" && params[:user][:role] != "admin"
+      if admin_count <= 1
+        redirect_to :back, notice: 'You can not change the role of this user. Because there will be no admins.'
+        return
+      else
+        force_log_out = true
+      end
     end
 
     # don't change password if it is empty
@@ -76,7 +81,12 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        if force_log_out
+          sign_out current_user
+          format.html { redirect_to root_path, notice: 'You are no longer an admin.' }
+        else
+          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
