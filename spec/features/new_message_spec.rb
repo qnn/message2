@@ -1,12 +1,5 @@
 require 'spec_helper'
 
-feature "New message" do
-  scenario "Anyone can create new message" do
-    create_new_message
-    expect(page).to have_content "Message was successfully created."
-  end
-end
-
 feature "Message visibility" do
   scenario "Message can be visible to only some users" do
     password = "123456"

@@ -5,12 +5,10 @@ feature "Admin has all priviledges" do
     create_admin_then_sign_in
   end
 
-  scenario "admin can see list of messages" do
+  scenario "admin can create, edit and delete message" do
     visit messages_path
     expect(page).to have_content "Listing messages"
-  end
 
-  scenario "admin can create, edit and delete message" do
     create_new_message
     expect(page).to have_content "Message was successfully created."
 
@@ -31,12 +29,10 @@ feature "Admin has all priviledges" do
     expect(page).to have_content "Message was successfully deleted."
   end
 
-  scenario "admin can see list of users" do
+  scenario "admin can create, read, update and delete user" do
     visit users_path
     expect(page).to have_content "Listing users"
-  end
 
-  scenario "admin can create, read, update and delete user" do
     username = "CommanderShepard"
     email = "shepard@normandy.com"
     password = "shepard123"
@@ -133,8 +129,9 @@ feature "User can only create and read public/private messages" do
     click_button "Sign in"
   end
 
-  scenario "User wants to read, update or delete public message" do
+  scenario "User wants to create, read, update or delete message" do
     create_new_message
+    expect(page).to have_content "Message was successfully created."
     message = Message.last
 
     visit messages_path
@@ -166,7 +163,10 @@ feature "Visitors can only create message" do
     @user = User.last
   end
 
-  scenario "Visitors want to read, update or delete message" do
+  scenario "Visitors want to create, read, update or delete message" do
+    create_new_message
+    expect(page).to have_content "Message was successfully created."
+
     visit messages_path
     page.status_code.should == 404
 
