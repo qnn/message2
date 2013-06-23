@@ -1,4 +1,15 @@
 module UserHelpers
+  def create_admin_then_sign_in
+    username = "admin"
+    password = "123456"
+    User.create([{ email: "test@example.com", password: password, username: username, role:"admin" }])
+    @admin = User.where("username = ?", username).first
+    visit new_user_session_path
+    fill_in "Login", :with => username
+    fill_in "Password", :with => password
+    click_button "Sign in"
+  end
+
   def it_should_not_have_access_to_crud_user(user)
     visit users_path
     page.status_code.should == 404

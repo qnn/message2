@@ -32,6 +32,7 @@
     <%= f.label :content %><br />
     <%= f.text_area :content %>
   </div>
+<% if !@visible_to.nil? %>
   <div class="field">
     <%= f.label :visible_to %><br />
 	<% User.all.each do |user| %>
@@ -39,6 +40,7 @@
 	<%= label_tag "visible_to_#{user.id}", "[#{user.role}] #{user.username} <#{user.email}>" %><br />
 	<% end %>
   </div>
+<% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

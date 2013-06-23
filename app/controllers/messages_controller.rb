@@ -14,10 +14,24 @@ class MessagesController < ApplicationController
     end
   end
 
+  User::ROLES.each do |role|
+    define_method "is_#{role}?" do
+      current_user.role == role
+    end
+  end
+
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    if is_user?
+      # Left Excluding JOIN
+      @messages = Message.find_by_sql("SELECT `messages`.* FROM `messages`
+        LEFT JOIN `flaggings` AS `f` ON `f`.`flaggable_id`=`messages`.`id`
+        WHERE (`f`.`flaggable_type`='Message' AND `f`.`flag`='visible_to'
+        AND `f`.`flagger_id`=#{current_user.id}) OR `f`.`flaggable_id` IS NULL")
+    else
+      @messages = Message.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,6 +43,10 @@ class MessagesController < ApplicationController
   # GET /messages/1.json
   def show
     @message = Message.find(params[:id])
+    if is_user?
+      not_found and return unless @message.flaggings.with_flag(:visible_to).empty? or
+        @message.flagged_by?(current_user, :visible_to)
+    end
 
     respond_to do |format|
       format.html # show.html.erb

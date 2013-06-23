@@ -2,14 +2,7 @@ require 'spec_helper'
 
 feature "Admin has all priviledges" do
   before :each do
-    username = "admin"
-    password = "123456"
-    User.create([{ email: "test@example.com", password: password, username: username, role:"admin" }])
-    @admin = User.where("username = ?", username).first
-    visit new_user_session_path
-    fill_in "Login", :with => username
-    fill_in "Password", :with => password
-    click_button "Sign in"
+    create_admin_then_sign_in
   end
 
   scenario "admin can see list of messages" do
