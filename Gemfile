@@ -9,6 +9,8 @@ gem 'sqlite3'
 
 gem 'devise'
 
+gem 'make_flaggable', :git => 'git://github.com/cavneb/make_flaggable.git'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
