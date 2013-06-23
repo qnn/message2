@@ -111,6 +111,23 @@ feature "Admin has all priviledges" do
   end
 end
 
+feature "Moderator can create/read all messages and make message visible to specific user" do
+  before :each do
+    username = "moderator001"
+    password = "123456"
+    User.create([{ email: "moderator001@example.com", password: password, username: username, role:"moderator" }])
+    @user = User.where("username = ?", username).first
+    visit new_user_session_path
+    fill_in "Login", :with => username
+    fill_in "Password", :with => password
+    click_button "Sign in"
+  end
+
+  scenario "User wants to create, read, update or delete user" do
+    it_should_not_have_access_to_crud_user @user
+  end
+end
+
 feature "User can only create and read public/private messages" do
   before :each do
     username = "user001"
