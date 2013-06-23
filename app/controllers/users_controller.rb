@@ -76,6 +76,15 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
+
+    if @user.id == current_user.id
+      redirect_to :back, notice: 'You cannot delete yourself.'
+      return
+    elsif @user.id < current_user.id
+      redirect_to :back, notice: 'You cannot delete admins with smaller ID than yours.'
+      return
+    end
+
     @user.destroy
 
     respond_to do |format|

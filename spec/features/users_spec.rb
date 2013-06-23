@@ -2,11 +2,12 @@ require 'spec_helper'
 
 feature "Admin has all priviledges" do
   before :each do
+    username = "admin"
     password = "123456"
-    User.create([{ email: "test@example.com", password: password, username: "admin", role:"admin" }])
-    @admin = User.where("username = ?", "admin").first
+    User.create([{ email: "test@example.com", password: password, username: username, role:"admin" }])
+    @admin = User.where("username = ?", username).first
     visit new_user_session_path
-    fill_in "Login", :with => @admin.username
+    fill_in "Login", :with => username
     fill_in "Password", :with => password
     click_button "Sign in"
   end
@@ -66,5 +67,25 @@ feature "Admin has all priviledges" do
 
     click_link "Delete"
     expect(page).to have_content "User was successfully deleted."
+  end
+
+  scenario "admin can not delete himself/herself or admins with smaller ID" do
+    click_link "Sign Out"
+    username = "admin2"
+    password = "123456"
+    User.create([{ email: "test2@example.com", password: password, username: username, role:"admin" }])
+    admin2 = User.where("username = ?", username).first
+    visit new_user_session_path
+    fill_in "Login", :with => username
+    fill_in "Password", :with => password
+    click_button "Sign in"
+
+    visit user_path(admin2.id)
+    click_link "Delete"
+    expect(page).to have_content "You cannot delete yourself."
+
+    visit user_path(@admin.id)
+    click_link "Delete"
+    expect(page).to have_content "You cannot delete admins with smaller ID than yours."
   end
 end
