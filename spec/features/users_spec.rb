@@ -159,14 +159,13 @@ end
 feature "Visitors can only create message" do
   before :each do
     create_new_message
+    expect(page).to have_content "Message was successfully created."
     @message = Message.last
+    User.create([{ email: "user001@example.com", password: "123456", username: "user001", role:"user" }])
     @user = User.last
   end
 
   scenario "Visitors want to create, read, update or delete message" do
-    create_new_message
-    expect(page).to have_content "Message was successfully created."
-
     visit messages_path
     page.status_code.should == 404
 
