@@ -13,6 +13,8 @@ class Message < ActiveRecord::Base
   validates :content, :length => { :maximum => 20000 }
 
   make_flaggable :visible_to
+
+  attr_accessor :visible_to
 end
 
 class String

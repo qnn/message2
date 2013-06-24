@@ -52,7 +52,7 @@ class MessagesController < ApplicationController
   # GET /messages/1.json
   def show
     @message = Message.find(params[:id])
-    @message["visible_to"] = @message.flaggings.with_flag(:visible_to)
+    @message.visible_to = @message.flaggings.with_flag(:visible_to)
     if is_user?
       not_found and return unless @message.visible_to.empty? or
         @message.flagged_by?(current_user, :visible_to)
