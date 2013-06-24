@@ -72,7 +72,7 @@ class UsersController < ApplicationController
         redirect_to :back, notice: 'You can not change the role of this user. Because there will be no admins.'
         return
       else
-        force_log_out = true
+        force_log_out = true if @user.id == current_user.id
       end
     end
 
