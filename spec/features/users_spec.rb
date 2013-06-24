@@ -112,7 +112,32 @@ feature "Moderator can create/read all messages and make message visible to spec
     click_button "Sign in"
   end
 
-  scenario "User wants to create, read, update or delete user" do
+  scenario "Moderator wants to create, read, update or delete message" do
+    create_new_message
+    expect(page).to have_content "Message was successfully created."
+    message = Message.last
+
+    visit messages_path
+    page.status_code.should == 200
+
+    visit message_path(message)
+    page.status_code.should == 200
+
+    visit edit_message_path(message)
+    page.status_code.should == 200
+    expect(page).to_not have_selector "input#message_name"
+    expect(page).to_not have_selector "input#message_phone_number"
+    expect(page).to_not have_selector "input#message_qq_number"
+    expect(page).to_not have_selector "input#message_title"
+    expect(page).to_not have_selector "textarea#message_content"
+    expect(page).to have_selector "input[name='visible_to[]']"
+    click_button "Update Message"
+
+    page.driver.submit :delete, message_path(message), {}
+    page.status_code.should == 404
+  end
+
+  scenario "Moderator wants to create, read, update or delete user" do
     it_should_not_have_access_to_crud_user @user
   end
 end

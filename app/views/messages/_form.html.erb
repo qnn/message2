@@ -10,37 +10,38 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-    <%= f.collection_select :gender, Message::USER_GENDER, :gender_index, :to_s %>
-  </div>
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number %>
-  </div>
-  <div class="field">
-    <%= f.label :qq_number %><br />
-    <%= f.text_field :qq_number %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </div>
-<% if !@visible_to.nil? %>
-  <div class="field">
-    <%= f.label :visible_to %><br />
-	<% User.all.each do |user| %>
-	<%= check_box_tag "visible_to[]", user.id, @visible_to.where("flagger_id = ?", user.id).present?, :id => "visible_to_#{user.id}" %>
-	<%= label_tag "visible_to_#{user.id}", "[#{user.role}] #{user.username} <#{user.email}>" %><br />
-	<% end %>
-  </div>
-<% end %>
+  <% if @show_editable_fields %>
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+      <%= f.collection_select :gender, Message::USER_GENDER, :gender_index, :to_s %>
+    </div>
+    <div class="field">
+      <%= f.label :phone_number %><br />
+      <%= f.text_field :phone_number %>
+    </div>
+    <div class="field">
+      <%= f.label :qq_number %><br />
+      <%= f.text_field :qq_number %>
+    </div>
+    <div class="field">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :content %><br />
+      <%= f.text_area :content %>
+    </div>
+  <% end %>
+  <% if !@visible_to.nil? %>
+    <div class="field">
+      <%= f.label :visible_to %><br />
+  	<% User.all.each do |user| %>
+  	<%= check_box_tag "visible_to[]", user.id, @visible_to.where("flagger_id = ?", user.id).present?, :id => "visible_to_#{user.id}" %>
+  	<%= label_tag "visible_to_#{user.id}", "[#{user.role}] #{user.username} <#{user.email}>" %><br />
+  	<% end %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

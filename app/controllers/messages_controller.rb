@@ -7,8 +7,9 @@ class MessagesController < ApplicationController
     case current_user.role
       when "admin"
       when "moderator"
+        not_found unless [:index, :show, :edit, :update].include? params[:action].to_sym
       when "user"
-        not_found if not [:index, :show].include? params[:action].to_sym
+        not_found unless [:index, :show].include? params[:action].to_sym
       else
         not_found
     end
@@ -68,6 +69,7 @@ class MessagesController < ApplicationController
   # GET /messages/new.json
   def new
     @message = Message.new
+    @show_editable_fields = true
 
     respond_to do |format|
       format.html # new.html.erb
@@ -78,6 +80,7 @@ class MessagesController < ApplicationController
   # GET /messages/1/edit
   def edit
     @message = Message.find(params[:id])
+    @show_editable_fields = is_admin?
     @visible_to = @message.flaggings.with_flag(:visible_to)
   end
 
@@ -85,6 +88,7 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(params[:message])
+    @show_editable_fields = true
 
     respond_to do |format|
       if @message.save
@@ -110,13 +114,21 @@ class MessagesController < ApplicationController
       User.find(user).unflag(@message, :visible_to)
     end
 
+    @show_editable_fields = is_admin?
+
     respond_to do |format|
-      if @message.update_attributes(params[:message])
+      if is_moderator?
+        # moderator can't update message
         format.html { redirect_to @message, notice: 'Message was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+        if @message.update_attributes(params[:message])
+          format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @message.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

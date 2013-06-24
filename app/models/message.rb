@@ -1,5 +1,6 @@
 class Message < ActiveRecord::Base
   USER_GENDER = %w(Mr. Ms.)
+
   attr_accessible :name, :gender, :phone_number, :qq_number, :title, :content
 
   validates_presence_of :name, :gender, :phone_number, :content
