@@ -16,6 +16,5 @@ describe "users/show" do
     rendered.should match(/Role/)
     rendered.should match(/Username/)
     rendered.should match(/Email/)
-    rendered.should match(/Password/)
   end
 end

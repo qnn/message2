@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   before_filter :check_priviledges, :except => [:new, :create]
 
   def check_priviledges
-    not_found and return if !current_user.present?
+    not_found and return unless current_user.present?
     case current_user.role
       when "admin"
       when "moderator"

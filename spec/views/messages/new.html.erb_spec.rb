@@ -18,7 +18,7 @@ describe "messages/new" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form[action=?][method=?]", messages_path, "post" do
       assert_select "input#message_name[name=?]", "message[name]"
-      assert_select "input#message_gender[name=?]", "message[gender]"
+      assert_select "select#message_gender[name=?]", "message[gender]"
       assert_select "input#message_phone_number[name=?]", "message[phone_number]"
       assert_select "input#message_qq_number[name=?]", "message[qq_number]"
       assert_select "input#message_title[name=?]", "message[title]"
