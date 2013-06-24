@@ -25,12 +25,21 @@ class MessagesController < ApplicationController
   def index
     if is_user?
       # Left Excluding JOIN
-      @messages = Message.find_by_sql("SELECT `messages`.* FROM `messages`
+      @messages = Message.find_by_sql("
+        SELECT `messages`.*, COUNT(`f2`.`flaggable_id`) AS `flaggers` FROM `messages`
         LEFT JOIN `flaggings` AS `f` ON `f`.`flaggable_id`=`messages`.`id`
+        LEFT JOIN `flaggings` AS `f2` ON `f2`.`flaggable_id`=`messages`.`id`
         WHERE (`f`.`flaggable_type`='Message' AND `f`.`flag`='visible_to'
-        AND `f`.`flagger_id`=#{current_user.id}) OR `f`.`flaggable_id` IS NULL")
+        AND `f`.`flagger_id`=#{current_user.id}) OR `f`.`flaggable_id` IS NULL
+        GROUP BY `messages`.`id` ORDER BY `messages`.`created_at` DESC
+        ")
     else
-      @messages = Message.all
+      @messages = Message.find_by_sql("
+        SELECT `messages`.*, COUNT(`f`.`flaggable_id`) AS `flaggers` FROM `messages`
+        LEFT JOIN `flaggings` AS `f` ON `f`.`flaggable_id`=`messages`.`id`
+        WHERE (`f`.`flaggable_type`='Message' AND `f`.`flag`='visible_to') OR `f`.`flaggable_id` IS NULL
+        GROUP BY `messages`.`id` ORDER BY `messages`.`created_at` DESC
+      ")
     end
 
     respond_to do |format|
@@ -43,8 +52,9 @@ class MessagesController < ApplicationController
   # GET /messages/1.json
   def show
     @message = Message.find(params[:id])
+    @message["visible_to"] = @message.flaggings.with_flag(:visible_to)
     if is_user?
-      not_found and return unless @message.flaggings.with_flag(:visible_to).empty? or
+      not_found and return unless @message.visible_to.empty? or
         @message.flagged_by?(current_user, :visible_to)
     end
 

@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Name:</b>
   <%= @message.name %>
@@ -30,6 +28,17 @@
   <%= @message.content %>
 </p>
 
+<p>
+  <b>Visible to:</b><br />
+  <% if @message.visible_to.empty? %>
+  	All
+  <% else %>
+    <% @message.visible_to.each do |v| %>
+  		<% user = User.find(v.flagger_id) %>
+			[<%= user.role %>] <%= user.username %> &lt;<%= user.email %>&gt;<br />
+    <% end %>
+  <% end %>
+</p>
 
 <%= link_to 'Edit', edit_message_path(@message) %> |
 <%= link_to 'Back', messages_path %>

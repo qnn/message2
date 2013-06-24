@@ -8,6 +8,7 @@
     <th>Qq number</th>
     <th>Title</th>
     <th>Content</th>
+    <th>Visibility</th>
     <th></th>
     <th></th>
     <th></th>
@@ -21,6 +22,21 @@
     <td><%= message.qq_number %></td>
     <td><%= message.title %></td>
     <td><%= message.content %></td>
+    <td>
+      <% if message["flaggers"] == 0 %>
+        All
+      <% else %>
+        <% if current_user.present? and current_user.role == "user" %>
+          <% if message["flaggers"] == 1 %>
+            Only you
+          <% else %>
+            You and <%= message["flaggers"] - 1 %> others
+          <% end %>
+        <% else %>
+          <%= pluralize(message["flaggers"], "user") %>
+        <% end %>
+      <% end%>
+    </td>
     <td><%= link_to 'Show', message %></td>
     <td><%= link_to 'Edit', edit_message_path(message) %></td>
     <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
