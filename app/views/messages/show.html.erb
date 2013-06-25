@@ -30,15 +30,33 @@
 
 <p>
   <b>Visible to:</b><br />
-  <% if @message.visible_to.empty? %>
-  	All
+  <% if %w(admin moderator).include? current_user.role %>
+    <% if @message.visible_to.empty? %>
+    	All
+    <% else %>
+      <% @message.visible_to.each do |v| %>
+    		<% user = User.find(v.flagger_id) %>
+  			[<%= user.role %>] <%= user.username %> &lt;<%= user.email %>&gt;<br />
+      <% end %>
+    <% end %>  
   <% else %>
-    <% @message.visible_to.each do |v| %>
-  		<% user = User.find(v.flagger_id) %>
-			[<%= user.role %>] <%= user.username %> &lt;<%= user.email %>&gt;<br />
-    <% end %>
+    <% if @message.visible_to.count == 0 %>
+      All
+    <% else %>
+      <% if current_user.present? and current_user.role == "user" %>
+        <% if @message.visible_to.count == 1 %>
+          Only you
+        <% else %>
+          You and <%= @message.visible_to.count - 1 %> others
+        <% end %>
+      <% else %>
+        <%= pluralize(@message.visible_to.count, "user") %>
+      <% end %>
+    <% end%>
   <% end %>
 </p>
 
-<%= link_to 'Edit', edit_message_path(@message) %> |
+<% if %w(admin moderator).include? current_user.role %>
+  <%= link_to 'Edit', edit_message_path(@message) %> |
+<% end %>
 <%= link_to 'Back', messages_path %>

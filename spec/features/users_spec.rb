@@ -32,6 +32,7 @@ feature "Admin has all priviledges" do
   scenario "admin can create, read, update and delete user" do
     visit users_path
     expect(page).to have_content "Listing users"
+    expect(page).to have_selector "a[href='#{users_path}']"
 
     username = "CommanderShepard"
     email = "shepard@normandy.com"
@@ -119,12 +120,17 @@ feature "Moderator can create/read all messages and make message visible to spec
 
     visit messages_path
     page.status_code.should == 200
+    expect(page).to have_selector "a[href='#{message_path(message)}']"
+    expect(page).to have_selector "a[href='#{edit_message_path(message)}']"
+    expect(page).to_not have_selector "a[href='#{message_path(message)}'][data-method='delete']"
 
     visit message_path(message)
     page.status_code.should == 200
+    expect(page).to have_selector "a[href='#{edit_message_path(message)}']"
 
     visit edit_message_path(message)
     page.status_code.should == 200
+    expect(page).to have_selector "a[href='#{message_path(message)}']"
     expect(page).to_not have_selector "input#message_name"
     expect(page).to_not have_selector "input#message_phone_number"
     expect(page).to_not have_selector "input#message_qq_number"
@@ -138,6 +144,8 @@ feature "Moderator can create/read all messages and make message visible to spec
   end
 
   scenario "Moderator wants to create, read, update or delete user" do
+    visit root_path
+    expect(page).to_not have_selector "a[href='#{users_path}']"
     it_should_not_have_access_to_crud_user @user
   end
 end
@@ -161,9 +169,13 @@ feature "User can only create and read public/private messages" do
 
     visit messages_path
     page.status_code.should == 200
+    expect(page).to have_selector "a[href='#{message_path(message)}']"
+    expect(page).to_not have_selector "a[href='#{edit_message_path(message)}']"
+    expect(page).to_not have_selector "a[href='#{message_path(message)}'][data-method='delete']"
 
     visit message_path(message)
     page.status_code.should == 200
+    expect(page).to_not have_selector "a[href='#{edit_message_path(message)}']"
 
     visit edit_message_path(message)
     page.status_code.should == 404
@@ -177,6 +189,8 @@ feature "User can only create and read public/private messages" do
   end
 
   scenario "User wants to create, read, update or delete user" do
+    visit root_path
+    expect(page).to_not have_selector "a[href='#{users_path}']"
     it_should_not_have_access_to_crud_user @user
   end
 end

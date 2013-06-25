@@ -29,6 +29,7 @@ feature "Message visibility" do
     expect(page).to have_selector "a[href='#{message_path(message)}']"
     visit message_path(message)
     page.status_code.should == 200
+    expect(page).to have_content "Only you" # user will not see details of visible_to
 
     click_link "Sign Out"
     visit new_user_session_path

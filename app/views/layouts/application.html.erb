@@ -9,13 +9,15 @@
 <body>
 
 <% if current_user.present? %>
-<%= link_to 'New Message', root_url %>
-<%= link_to 'Messages', messages_url %>
-<%= link_to 'Users', users_url %>
-<%= link_to ("[%s] %s" % [current_user.role, current_user.email]), edit_user_registration_url %>
-<%= link_to 'Sign Out', destroy_user_session_url, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'New Message', root_path %>
+<%= link_to 'Messages', messages_path %>
+<% if current_user.role == "admin" %>
+  <%= link_to 'Users', users_path %>
+<% end %>
+<%= link_to ("[%s] %s" % [current_user.role, current_user.email]), edit_user_registration_path %>
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% else %>
-<%= link_to 'Sign In', new_user_session_url %>
+<%= link_to 'Sign In', new_user_session_path %>
 <% end %>
 
 <p class="notice"><%= notice %></p>
