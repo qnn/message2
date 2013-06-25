@@ -1,26 +1,29 @@
 <h1>Listing users</h1>
 
 <table class="list">
-  <tr>
-    <th>ID</th>
-    <th>Role</th>
-    <th>Username</th>
-    <th>Email</th>
-    <th></th>
-  </tr>
-
+  <thead>
+    <tr>
+      <th class="id">ID</th>
+      <th>Role</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @users.each do |user| %>
-  <tr>
-	<td><%= user.id %></td>
-    <td><%= user.role %></td>
-    <td><%= link_to user.username, user, :class => "link" %></td>
-    <td><%= user.email %></td>
-    <td class="list_actions">
-      <%= link_to 'Edit', edit_user_path(user), :class => "button_link" %>
-      <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
-    </td>
-  </tr>
-<% end %>
+    <tr>
+    	<td class="id"><%= user.id %></td>
+      <td><%= user.role %></td>
+      <td><%= link_to user.username, user, :class => "link" %></td>
+      <td><%= user.email %></td>
+      <td class="list_actions">
+        <%= link_to 'Edit', edit_user_path(user), :class => "button_link" %>
+        <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
+      </td>
+    </tr>
+<% end %>    
+  </tbody>
 </table>
 
 <div class="separator"></div>

@@ -1,45 +1,48 @@
 <h1>Listing messages</h1>
 
 <table class="list">
-  <tr>
-    <th>Title</th>
-    <th class="name">Name</th>
-    <th>Content</th>
-    <th class="visibility" colspan="2">Visibility/Actions</th>
-  </tr>
-
+  <thead>
+    <tr>
+      <th class="title">Title</th>
+      <th class="name">Name</th>
+      <th>Content</th>
+      <th colspan="2">Visibility/Actions</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @messages.each do |message| %>
-  <tr>
-    <td><%= link_to truncate(message.title.presence || "(untitled)", :length => 20), message, :class => "link" %></td>
-    <td><%= Message::USER_GENDER.try(:[], message.gender) %> <%= message.name %></td>
-    <td><%= truncate message.content, :length => 40 %></td>
-    <td>
-      <% if message["flaggers"] == 0 %>
-        All
-      <% else %>
-        <% if current_user.present? and current_user.role == "user" %>
-          <% if message["flaggers"] == 1 %>
-            Only you
-          <% else %>
-            You and <%= message["flaggers"] - 1 %> others
-          <% end %>
+    <tr>
+      <td><%= link_to truncate(message.title.presence || "(untitled)", :length => 20), message, :class => "link" %></td>
+      <td><%= Message::USER_GENDER.try(:[], message.gender) %> <%= message.name %></td>
+      <td><%= truncate message.content, :length => 40 %></td>
+      <td>
+        <% if message["flaggers"] == 0 %>
+          All
         <% else %>
-          <%= pluralize(message["flaggers"], "user") %>
+          <% if current_user.present? and current_user.role == "user" %>
+            <% if message["flaggers"] == 1 %>
+              Only you
+            <% else %>
+              You and <%= message["flaggers"] - 1 %> others
+            <% end %>
+          <% else %>
+            <%= pluralize(message["flaggers"], "user") %>
+          <% end %>
+        <% end%>
+      </td>
+      <td class="list_actions">
+        <% if current_user.present?%>
+          <% if %w(admin moderator).include? current_user.role %>
+            <%= link_to 'Edit', edit_message_path(message), :class => "button_link" %>
+          <% end %>
+          <% if current_user.role == "admin" %>
+            <%= link_to 'Delete', message, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
+          <% end %>
         <% end %>
-      <% end%>
-    </td>
-    <td class="list_actions">
-      <% if current_user.present?%>
-        <% if %w(admin moderator).include? current_user.role %>
-          <%= link_to 'Edit', edit_message_path(message), :class => "button_link" %>
-        <% end %>
-        <% if current_user.role == "admin" %>
-          <%= link_to 'Delete', message, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
-        <% end %>
-      <% end %>
-    </td>
-  </tr>
+      </td>
+    </tr>
 <% end %>
+  </tbody>
 </table>
 
 <div class="separator"></div>
