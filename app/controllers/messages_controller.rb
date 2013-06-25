@@ -26,21 +26,21 @@ class MessagesController < ApplicationController
   def index
     if is_user?
       # Left Excluding JOIN
-      @messages = Message.find_by_sql("
+      @messages = Message.paginate_by_sql("
         SELECT `messages`.*, COUNT(`f2`.`flaggable_id`) AS `flaggers` FROM `messages`
         LEFT JOIN `flaggings` AS `f` ON `f`.`flaggable_id`=`messages`.`id`
         LEFT JOIN `flaggings` AS `f2` ON `f2`.`flaggable_id`=`messages`.`id`
         WHERE (`f`.`flaggable_type`='Message' AND `f`.`flag`='visible_to'
         AND `f`.`flagger_id`=#{current_user.id}) OR `f`.`flaggable_id` IS NULL
         GROUP BY `messages`.`id` ORDER BY `messages`.`created_at` DESC
-        ")
+        ", :page => params[:page], :per_page => @per_page)
     else
-      @messages = Message.find_by_sql("
+      @messages = Message.paginate_by_sql("
         SELECT `messages`.*, COUNT(`f`.`flaggable_id`) AS `flaggers` FROM `messages`
         LEFT JOIN `flaggings` AS `f` ON `f`.`flaggable_id`=`messages`.`id`
         WHERE (`f`.`flaggable_type`='Message' AND `f`.`flag`='visible_to') OR `f`.`flaggable_id` IS NULL
         GROUP BY `messages`.`id` ORDER BY `messages`.`created_at` DESC
-      ")
+      ", :page => params[:page], :per_page => @per_page)
     end
 
     respond_to do |format|

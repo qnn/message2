@@ -16,6 +16,8 @@ class Message < ActiveRecord::Base
   make_flaggable :visible_to
 
   attr_accessor :visible_to
+
+  self.per_page = 10
 end
 
 class String

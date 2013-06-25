@@ -407,3 +407,47 @@ table.list {
     padding: 0 10px 0 0;
   }
 }
+
+div.pagination {
+  line-height: 40px;
+  margin: 20px 0 0;
+  a {
+    color: #666;
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.59);
+    font-size: 12px;
+    display: inline;
+    position: relative;
+    margin: 0px 1px 0px 1px;
+    width: auto;
+    height: auto;
+    background: #ececec;
+    padding: 6px 10px 6px 10px;
+    outline: none;
+    border: 1px solid #d8d8d8;
+    border-bottom: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    -o-box-shadow: $shadow;
+    box-shadow: $shadow;
+  }
+  a:hover {
+    color: #888;
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.69);
+    -webkit-box-shadow: $shadow2;
+    -moz-box-shadow: $shadow2;
+    -o-box-shadow: $shadow2;
+    box-shadow: $shadow2;
+  }
+  a:active, a.current, a.disabled {
+    color: #696969;
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.53);
+    border: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d8d8d8;
+    -webkit-box-shadow: $shadow3;
+    -moz-box-shadow: $shadow3;
+    -o-box-shadow: $shadow3;
+    box-shadow: $shadow3;
+  }
+}

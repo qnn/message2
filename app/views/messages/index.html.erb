@@ -45,6 +45,8 @@
   </tbody>
 </table>
 
+<%= will_paginate @messages, :inner_window => 3, :previous_label => '&laquo;', :next_label => '&raquo;', :renderer => 'PaginationListLinkRenderer' %>
+
 <div class="separator"></div>
 
 <div class="actions">
