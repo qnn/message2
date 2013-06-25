@@ -12,12 +12,12 @@
   <% end %>
   <% if @show_editable_fields %>
     <div class="field">
-      <%= f.label :name %><br />
+      <%= f.label :name %> <span class="required">*</span><br />
       <%= f.text_field :name %>
       <%= f.collection_select :gender, Message::USER_GENDER, :gender_index, :to_s %>
     </div>
     <div class="field">
-      <%= f.label :phone_number %><br />
+      <%= f.label :phone_number %> <span class="required">*</span><br />
       <%= f.text_field :phone_number %>
     </div>
     <div class="field">
@@ -29,7 +29,7 @@
       <%= f.text_field :title %>
     </div>
     <div class="field">
-      <%= f.label :content %><br />
+      <%= f.label :content %> <span class="required">*</span><br />
       <%= f.text_area :content, :cols => 90, :rows => 10 %>
     </div>
   <% end %>
@@ -49,5 +49,6 @@
       <%= link_to 'Back to Message', @message, :class => "button_link" %>
       <%= link_to 'Back to List', messages_path, :class => "button_link" %>
     <% end %>
+    <span class="required">*</span>: required
   </div>
 <% end %>

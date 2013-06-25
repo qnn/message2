@@ -32,6 +32,10 @@ a.link {
   }
 }
 
+.required {
+  color: red;
+}
+
 div {
   &.field {
     margin-bottom: 10px;
