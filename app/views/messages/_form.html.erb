@@ -30,7 +30,7 @@
     </div>
     <div class="field">
       <%= f.label :content %><br />
-      <%= f.text_area :content, :cols => 60, :rows => 10 %>
+      <%= f.text_area :content, :cols => 100, :rows => 10 %>
     </div>
   <% end %>
   <% if !@visible_to.nil? %>
@@ -42,6 +42,7 @@
   	<% end %>
     </div>
   <% end %>
+  <div class="separator"></div>
   <div class="actions">
     <%= f.submit %>
     <% if @message.id %>

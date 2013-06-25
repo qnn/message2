@@ -1,7 +1,14 @@
+<h1>User details</h1>
+
 <% @user.attributes.delete_if { |attr| attr == "encrypted_password" }.each do |(a, b)| %>
-<p><strong><%= a %>:</strong> <%= b %></p>
+<div class="field"><strong><%= a.humanize %>:</strong>
+<%= b.presence || "(n/a)" %></div>
 <% end %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', users_path %>
+<div class="separator"></div>
+
+<div class="actions">
+  <%= link_to 'Edit', edit_user_path(@user), :class => "button_link" %>
+  <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
+  <%= link_to 'Back to List', users_path, :class => "button_link" %>
+</div>

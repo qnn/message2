@@ -1,25 +1,18 @@
 <h1>Listing messages</h1>
 
-<table>
+<table class="list">
   <tr>
-    <th>Name</th>
-    <th>Gender</th>
-    <th>Phone number</th>
-    <th>Qq number</th>
     <th>Title</th>
+    <th class="name">Name</th>
     <th>Content</th>
-    <th>Visibility</th>
-    <th></th>
+    <th class="visibility" colspan="2">Visibility/Actions</th>
   </tr>
 
 <% @messages.each do |message| %>
   <tr>
-    <td><%= message.name %></td>
-    <td><%= Message::USER_GENDER.try(:[], message.gender) %></td>
-    <td><%= message.phone_number %></td>
-    <td><%= message.qq_number %></td>
-    <td><%= message.title %></td>
-    <td><%= message.content %></td>
+    <td><%= link_to truncate(message.title.presence || "(untitled)", :length => 20), message, :class => "link" %></td>
+    <td><%= Message::USER_GENDER.try(:[], message.gender) %> <%= message.name %></td>
+    <td><%= truncate message.content, :length => 40 %></td>
     <td>
       <% if message["flaggers"] == 0 %>
         All
@@ -35,14 +28,13 @@
         <% end %>
       <% end%>
     </td>
-    <td>
-      <%= link_to 'Show', message %>
+    <td class="list_actions">
       <% if current_user.present?%>
         <% if %w(admin moderator).include? current_user.role %>
-          <%= link_to 'Edit', edit_message_path(message) %>
+          <%= link_to 'Edit', edit_message_path(message), :class => "button_link" %>
         <% end %>
         <% if current_user.role == "admin" %>
-          <%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Delete', message, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
         <% end %>
       <% end %>
     </td>

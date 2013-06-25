@@ -24,6 +24,14 @@ a {
   text-decoration: none;
 }
 
+a.link {
+  color: #1177ee;
+  &:hover, &.current {
+    background: #1177ee;
+    color: #fff;
+  }
+}
+
 div {
   &.field, &.actions {
     margin-bottom: 10px;
@@ -88,12 +96,13 @@ div {
 }
 
 #menu {
-  width: 600px;
+  width: 700px;
   margin: 0 auto;
+  text-align: center;
 }
 
 #main {
-  width: 600px;
+  width: 700px;
   margin: 5px auto;
   padding: 10px 20px;
   border-radius: 4px;
@@ -108,6 +117,12 @@ div {
   background: -o-linear-gradient(#F2F2F2, #FFF 20%);
   border: 1px solid;
   border-color: #E5E5E5 #DBDBDB #D2D2D2;
+  h1 {
+    border-bottom: 1px solid #CCC;
+    padding: 10px 0;
+    margin: 0 0 10px 0;
+    font-size: 22px;
+  }
 }
 
 input, textarea {
@@ -308,4 +323,23 @@ input[type=checkbox] {
   overflow: hidden;
   padding: 0;
   margin: 15px 0;
+}
+
+table.list {
+  width: 100%;
+  th.visibility {
+    text-align: left;
+  }
+  th.name {
+    width: 80px;
+  }
+  td.list_actions {
+    white-space: nowrap;
+  }
+  tr {
+    height: 40px;
+  }
+  td {
+    padding: 0 10px 0 0;
+  }
 }

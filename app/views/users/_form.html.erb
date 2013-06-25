@@ -27,7 +27,13 @@
     <%= f.label :password %><br />
     <%= f.password_field :password %>
   </div>
+  <div class="separator"></div>
   <div class="actions">
     <%= f.submit %>
+    <% if @user.id %>
+      <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
+      <%= link_to 'Back to User', @user, :class => "button_link" %>
+    <% end %>  
+    <%= link_to 'Back to List', users_path, :class => "button_link" %>
   </div>
 <% end %>

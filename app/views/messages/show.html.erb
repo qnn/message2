@@ -17,12 +17,12 @@
 
 <div class="field">
   <b>Qq number:</b>
-  <%= @message.qq_number %>
+  <%= @message.qq_number.presence || "(not provided)" %>
 </div>
 
 <div class="field">
   <b>Title:</b>
-  <%= @message.title %>
+  <%= @message.title.presence || "(untitled)" %>
 </div>
 
 <div class="field">
