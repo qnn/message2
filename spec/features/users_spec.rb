@@ -25,7 +25,7 @@ feature "Admin has all priviledges" do
     expect(page).to have_content "Message was successfully updated."
 
     visit messages_path
-    click_link "Destroy"
+    click_link "Delete"
     expect(page).to have_content "Message was successfully deleted."
   end
 

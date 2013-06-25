@@ -19,7 +19,7 @@
       <td><%= user.email %></td>
       <td class="list_actions">
         <%= link_to 'Edit', edit_user_path(user), :class => "button_link" %>
-        <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
+        <%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
       </td>
     </tr>
 <% end %>    
