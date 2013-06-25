@@ -153,12 +153,12 @@ end
 feature "User can only create and read public/private messages" do
   before :each do
     username = "user001"
-    password = "123456"
-    User.create([{ email: "user001@example.com", password: password, username: username, role:"user" }])
+    @password = "123456"
+    User.create([{ email: "user001@example.com", password: @password, username: username, role:"user" }])
     @user = User.where("username = ?", username).first
     visit new_user_session_path
     fill_in "Login", :with => username
-    fill_in "Password", :with => password
+    fill_in "Password", :with => @password
     click_button "Sign in"
   end
 
@@ -192,6 +192,16 @@ feature "User can only create and read public/private messages" do
     visit root_path
     expect(page).to_not have_selector "a[href='#{users_path}']"
     it_should_not_have_access_to_crud_user @user
+  end
+
+  scenario "User wants to change username or email" do
+    visit edit_user_registration_path
+    page.status_code.should == 200
+    expect(page).to_not have_field "Username"
+    expect(page).to_not have_field "Email"
+    fill_in "Current password", :with => @password
+    click_button "Update"
+    expect(page).to have_content "You have updated your account successfully."
   end
 end
 
