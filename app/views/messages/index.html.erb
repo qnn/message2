@@ -15,7 +15,7 @@
       <td><%= link_to truncate(message.title.presence || "(untitled)", :length => 20), message, :class => "link" %></td>
       <td><%= Message::USER_GENDER.try(:[], message.gender) %> <%= message.name %></td>
       <td><%= truncate message.content, :length => 40 %></td>
-      <td>
+      <td class="visible_to">
         <% if message["flaggers"] == 0 %>
           All
         <% else %>

@@ -1,6 +1,11 @@
 <h1>Message details</h1>
 
 <div class="field">
+  <b>Created at:</b>
+  <%= @message.created_at %>
+</div>
+
+<div class="field">
   <b>Name:</b>
   <%= @message.name %>
 </div>
@@ -27,7 +32,7 @@
 
 <div class="field">
   <b>Content:</b>
-  <%= @message.content %>
+  <%= simple_format @message.content %>
 </div>
 
 <div class="field">

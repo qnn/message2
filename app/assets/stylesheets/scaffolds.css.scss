@@ -44,7 +44,25 @@ div {
 }
 
 #notice {
-  color: green;
+  width: 300px;
+  margin: 5px auto;
+  text-align: center;
+  background: #2CDB00;
+  border: 1px solid #1E4B00;
+  padding: 2px 8px;
+  border-radius: 5px;
+  box-shadow: 0 0 6px 0px #666;
+}
+
+#alert {
+  width: 300px;
+  margin: 5px auto;
+  text-align: center;
+  background: #F7F700;
+  border: 1px solid #797400;
+  padding: 2px 8px;
+  border-radius: 5px;
+  box-shadow: 0 0 6px 0px #666;
 }
 
 .field_with_errors {
@@ -170,7 +188,7 @@ input[type=text], input[type=password], input[type=email], textarea {
   margin: 0;
   padding: 5px 35px 5px 5px;
   outline: none;
-  color: #999;
+  color: #6F6F6F;
   background: #fafafa;
   border: 1px solid #d2d2d2;
   border-bottom: 1px solid #d8d8d8;
@@ -181,7 +199,7 @@ input[type=text], input[type=password], input[type=email], textarea {
   box-shadow: $input_text_shadow;
   &:focus {
     background: #fff;
-    color: #666;
+    color: #000;
     border: 1px solid #d2d2d2;
     border-bottom: 1px solid #d8d8d8;
   }
@@ -368,7 +386,7 @@ table.list {
   th.name {
     width: 80px;
   }
-  td.list_actions {
+  td.visible_to, td.list_actions {
     white-space: nowrap;
   }
   thead tr {
