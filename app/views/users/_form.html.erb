@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :email %> <span class="required">*</span><br />
-    <%= f.text_field :email %>
+    <%= f.text_field :email, default: "12345@qq.com" %>
   </div>
   <div class="field">
     <%= f.label :password %><% unless @user.id %> <span class="required">*</span><% end %><br />

@@ -3,7 +3,9 @@
 <table class="list">
   <thead>
     <tr>
+      <th class="id">ID</th>
       <th class="title">Title</th>
+      <th class="date">Date</th>
       <th class="name">Name</th>
       <th>Content</th>
       <th colspan="2">Visibility/Actions</th>
@@ -12,7 +14,9 @@
   <tbody>
 <% @messages.each do |message| %>
     <tr>
-      <td><%= link_to truncate(message.title.presence || "(untitled)", :length => 20), message, :class => "link" %></td>
+      <td class="id"><%= message.id %></td>
+      <td class="title"><%= link_to truncate(message.title.presence || "(untitled)", :length => 20), message, :class => "link" %></td>
+      <td class="date"><%= l message.created_at, format: "%Y-%m-%d %H:%M:%S" %></td>
       <td class="name"><%= Message::USER_GENDER.try(:[], message.gender) %> <%= truncate message.name , :length => 15 %></td>
       <td><%= truncate message.content, :length => 30 %></td>
       <td class="visible_to">

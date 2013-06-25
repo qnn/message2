@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
+    @user.email = "123456@qq.com" if @user.email.blank?
 
     respond_to do |format|
       format.html # new.html.erb

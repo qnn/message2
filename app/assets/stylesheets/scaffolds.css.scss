@@ -122,13 +122,15 @@ div {
   position: relative;
 }
 
+$width: 800px;
+
 #menu {
   position: absolute;
   z-index: 1;
-  width: 700px;
+  width: $width;
   left: 50%;
   top: 2px;
-  margin-left: -350px;
+  margin-left: -$width/2;
   text-align: center;
   a.link {
     margin: 0 4px;
@@ -145,10 +147,10 @@ div {
 #context {
   position: absolute;
   z-index: 10;
-  width: 700px;
+  width: $width;
   left: 50%;
   top: 22px;
-  margin-left: -350px;
+  margin-left: -$width/2;
 }
 
 #main {
@@ -183,6 +185,8 @@ label {
   line-height: 28px;
   cursor: pointer;
 }
+
+// http://www.icondeposit.com/code:3
 
 $shadow: 0px 2px 2px rgba(0,0,0,0.027), inset 0px 1px 0px rgba(255,255,255,0.69), inset 0px -1px 0px rgba(0,0,0,0.0187), inset 0px 15px 14px rgba(255,255,255,0.57);
 $shadow2: 0px 2px 2px rgba(0,0,0,0.027), inset 0px 1px 0px rgba(255,255,255,0.69), inset 0px -1px 0px rgba(0,0,0,0.0187), inset 0px 15px 14px rgba(255,255,255,0.75);
@@ -387,12 +391,16 @@ table.list {
   }
   th.id, td.id {
     text-align: center;
-  }
-  th.title {
-    text-align: center;
+    padding: 0 5px;
   }
   td.name {
     width: 90px;
+  }
+  td.date {
+    width: 90px;
+  }
+  td.title {
+    width: 130px;
   }
   td.visible_to, td.list_actions {
     white-space: nowrap;
