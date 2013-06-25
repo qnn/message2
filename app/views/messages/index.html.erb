@@ -13,8 +13,8 @@
 <% @messages.each do |message| %>
     <tr>
       <td><%= link_to truncate(message.title.presence || "(untitled)", :length => 20), message, :class => "link" %></td>
-      <td><%= Message::USER_GENDER.try(:[], message.gender) %> <%= message.name %></td>
-      <td><%= truncate message.content, :length => 40 %></td>
+      <td class="name"><%= Message::USER_GENDER.try(:[], message.gender) %> <%= truncate message.name , :length => 15 %></td>
+      <td><%= truncate message.content, :length => 30 %></td>
       <td class="visible_to">
         <% if message["flaggers"] == 0 %>
           All
