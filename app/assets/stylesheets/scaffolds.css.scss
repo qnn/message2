@@ -121,7 +121,7 @@ div {
 #menu {
   position: absolute;
   z-index: 1;
-  width: 742px;
+  width: 700px;
   left: 50%;
   top: 2px;
   margin-left: -350px;
@@ -138,13 +138,17 @@ div {
   }
 }
 
-#main {
+#context {
   position: absolute;
   z-index: 10;
   width: 700px;
   left: 50%;
   top: 22px;
   margin-left: -350px;
+}
+
+#main {
+  margin-bottom: 20px;
   padding: 10px 20px;
   border-radius: 4px;
   -webkit-border-radius: 4px;

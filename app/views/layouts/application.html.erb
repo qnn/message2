@@ -23,10 +23,12 @@
       <%= link_to 'Sign In', new_user_session_path, class: "link" %>
     <% end %>
   </div>
-  <div id="main">
-    <% if notice %><div id="notice"><%= notice %></div><% end %>
-    <% if alert %><div id="alert"><%= alert %></div><% end %>
-    <%= yield %>
+  <div id="context">
+    <div id="main">
+      <% if notice %><div id="notice"><%= notice %></div><% end %>
+      <% if alert %><div id="alert"><%= alert %></div><% end %>
+      <%= yield %>
+    </div>
   </div>
 </div>
 
