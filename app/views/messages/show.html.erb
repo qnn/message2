@@ -1,34 +1,36 @@
-<p>
+<h1>Message details</h1>
+
+<div class="field">
   <b>Name:</b>
   <%= @message.name %>
-</p>
+</div>
 
-<p>
+<div class="field">
   <b>Gender:</b>
   <%= Message::USER_GENDER.try(:[], @message.gender) %>
-</p>
+</div>
 
-<p>
+<div class="field">
   <b>Phone number:</b>
   <%= @message.phone_number %>
-</p>
+</div>
 
-<p>
+<div class="field">
   <b>Qq number:</b>
   <%= @message.qq_number %>
-</p>
+</div>
 
-<p>
+<div class="field">
   <b>Title:</b>
   <%= @message.title %>
-</p>
+</div>
 
-<p>
+<div class="field">
   <b>Content:</b>
   <%= @message.content %>
-</p>
+</div>
 
-<p>
+<div class="field">
   <b>Visible to:</b><br />
   <% if %w(admin moderator).include? current_user.role %>
     <% if @message.visible_to.empty? %>
@@ -54,9 +56,13 @@
       <% end %>
     <% end%>
   <% end %>
-</p>
+</div>
 
-<% if %w(admin moderator).include? current_user.role %>
-  <%= link_to 'Edit', edit_message_path(@message) %> |
-<% end %>
-<%= link_to 'Back', messages_path %>
+<div class="separator"></div>
+
+<div class="actions">
+  <% if %w(admin moderator).include? current_user.role %>
+    <%= link_to 'Edit Message', edit_message_path(@message), :class => "button_link" %>
+  <% end %>
+  <%= link_to 'Back to List', messages_path, :class => "button_link" %>
+</div>
