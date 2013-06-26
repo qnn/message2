@@ -15,12 +15,6 @@ class MessagesController < ApplicationController
     end
   end
 
-  User::ROLES.each do |role|
-    define_method "is_#{role}?" do
-      current_user.role == role
-    end
-  end
-
   # GET /messages
   # GET /messages.json
   def index

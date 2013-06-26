@@ -23,7 +23,7 @@
         <% if message["flaggers"] == 0 %>
           All
         <% else %>
-          <% if current_user.present? and current_user.role == "user" %>
+          <% if is_user? %>
             <% if message["flaggers"] == 1 %>
               Only you
             <% else %>
@@ -35,11 +35,11 @@
         <% end%>
       </td>
       <td class="list_actions">
-        <% if current_user.present?%>
+        <% if current_user.present? %>
           <% if %w(admin moderator).include? current_user.role %>
             <%= link_to 'Edit', edit_message_path(message), :class => "button_link" %>
           <% end %>
-          <% if current_user.role == "admin" %>
+          <% if is_admin? %>
             <%= link_to 'Delete', message, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
           <% end %>
         <% end %>
