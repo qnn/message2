@@ -15,6 +15,8 @@ jQuery ($) ->
   $("#notice, #alert").delay(5000).fadeOut 200, ->
     $(this).remove();
   $("input[type=submit]").prop("disabled", true);
+  $("a[data-method=delete]").addClass("disabled");
   setTimeout ->
     $("input[type=submit]").prop("disabled", false);
+    $("a[data-method=delete]").removeClass("disabled");
   , 2000
