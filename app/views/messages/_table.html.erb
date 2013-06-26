@@ -3,11 +3,11 @@
     <tr>
       <% if is_admin? %><th class="cb"><%= check_box_tag "select", "", false, id: "msgs_select" %></th><% end %>
       <th class="id">ID</th>
-      <th class="title">Title</th>
-      <th class="date">Date</th>
-      <th class="name">Name</th>
-      <th>Content</th>
-      <th colspan="2">Visibility/Actions</th>
+      <th class="title"><%= t "helpers.label.message.title" %></th>
+      <th class="date"><%= t "message.date" %></th>
+      <th class="name"><%= t "helpers.label.message.name" %></th>
+      <th><%= t "helpers.label.message.content" %></th>
+      <th colspan="2"><%= t "message.visibility" %>/<%= t "message.actions" %></th>
     </tr>
   </thead>
   <tbody>
@@ -17,30 +17,32 @@
       <td class="id"><%= message.id %></td>
       <td class="title"><%= link_to truncate(message.title.presence || "(untitled)", :length => 20), message, :class => "link" %></td>
       <td class="date"><%= l message.created_at, format: "%Y-%m-%d %H:%M:%S" %></td>
-      <td class="name"><%= Message::USER_GENDER.try(:[], message.gender) %> <%= truncate message.name , :length => 15 %></td>
+      <td class="name">
+        <%= t 'message.display_name', gender: t("gender.#{Message::USER_GENDER.try(:[], message.gender)}"), name: truncate(message.name, :length => 15) %>
+      </td>
       <td><%= truncate message.content, :length => 30 %></td>
       <td class="visible_to">
         <% if message["flaggers"] == 0 %>
-          All
+          <%= t 'message.All' %>
         <% else %>
           <% if is_user? %>
             <% if message["flaggers"] == 1 %>
-              Only you
+              <%= t 'message.Only_you' %>
             <% else %>
-              You and <%= message["flaggers"] - 1 %> others
+              <%= t 'message.You_and_others', count: message["flaggers"] - 1 %>
             <% end %>
           <% else %>
-            <%= pluralize(message["flaggers"], "user") %>
+            <%= t "user.users", count: message["flaggers"] %>
           <% end %>
         <% end%>
       </td>
       <td class="list_actions">
         <% if current_user.present? %>
           <% if %w(admin moderator).include? current_user.role %>
-            <%= link_to 'Edit', edit_message_path(message), :class => "button_link" %>
+            <%= link_to t('Edit'), edit_message_path(message), :class => "button_link" %>
           <% end %>
           <% if is_admin? %>
-            <%= link_to 'Delete', message, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
+            <%= link_to t('Delete'), message, method: :delete, data: { confirm: t('message.delete.confirm') }, :class => "button_link" %>
           <% end %>
         <% end %>
       </td>

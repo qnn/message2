@@ -1,17 +1,17 @@
-<h1>Listing messages</h1>
+<h1><%= t('message.Listing_Messages') %></h1>
 
 <% if is_admin? %>
   <%= form_tag destroy_multiple_messages_path, method: :delete, id: "frm_msg_list" do %>
     <%= render 'table' %>
     <div class="actions">
-      <%= link_to 'New Message', new_message_path, :class => "button_link" %>
-      <%= link_to 'Delete Selected', 'javascript:;', :class => "button_link", data: { form2submit: "#frm_msg_list", fconfirm: "Are you sure?" } %>
+      <%= link_to t('message.New_Message'), new_message_path, :class => "button_link" %>
+      <%= link_to t('message.Delete_Selected'), 'javascript:;', :class => "button_link", data: { form2submit: "#frm_msg_list", fconfirm: t('message.delete_multiple.confirm') } %>
     </div>
   <% end %>
 <% else %>
   <%= render 'table' %>
 
   <div class="actions">
-    <%= link_to 'New Message', new_message_path, :class => "button_link" %>
+    <%= link_to t('message.New_Message'), new_message_path, :class => "button_link" %>
   </div>
 <% end %>

@@ -11,14 +11,14 @@
 <div id="wrapper">
   <div id="menu">
     <% if current_user.present? %>
-      <%= link_to 'New Message', root_path, class: "#{current?(root_path)}" %>
-      <%= link_to 'Messages', messages_path, class: "#{current?(messages_path)}" %>
+      <%= link_to t('menu.New_Message'), root_path, class: "#{current?(root_path)}" %>
+      <%= link_to t('menu.Messages'), messages_path, class: "#{current?(messages_path)}" %>
       <% if is_admin? %>
-        <%= link_to 'Users', users_path, class: "#{current?(users_path)}" %>
+        <%= link_to t('menu.Users'), users_path, class: "#{current?(users_path)}" %>
       <% end %>
       <%= link_to ("[%s] %s <%s>" % [current_user.role, current_user.username, current_user.email]),
         edit_user_registration_path, class: "#{current?(edit_user_registration_path)}" %>
-      <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: "link" %>
+      <%= link_to t('menu.Sign_Out'), destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: "link" %>
     <% end %>
   </div>
   <div id="context">
@@ -26,6 +26,11 @@
       <% if notice %><div id="notice"><%= notice %></div><% end %>
       <% if alert %><div id="alert"><%= alert %></div><% end %>
       <%= yield %>
+    </div>
+    <div id="footer">
+      <% ApplicationController::LOCALES.each do |a,b| %>
+        <%= link_to b, locale: a.to_s.gsub(/_/,"-") %>
+      <% end %>
     </div>
   </div>
 </div>

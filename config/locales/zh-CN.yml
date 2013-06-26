@@ -1,0 +1,47 @@
+zh-CN:
+  required: 必填项
+  Edit: 编辑
+  Delete: 删除
+  gender:
+    Mr: 先生
+    Ms: 女士
+  menu:
+    New_Message: 新增留言
+    Messages: 留言管理
+    Users: 用户管理
+    Sign_Out: 退出
+  message:
+    date: 创建日期
+    visibility: 谁可见？
+    actions: 动作
+    Back_to_Message: 回到留言详细页
+    Back_to_List: 回到留言列表
+    Listing_Messages: 留言列表
+    New_Message: 新增留言
+    Delete_Selected: 删除选定留言
+    Editing_Message: 编辑留言
+    All: 所有人
+    Only_you: 只是你
+    You_and_others: "你和另外%{count}人"
+    delete:
+      confirm: 确定要删除这条留言吗？删除后将不能恢复。
+    delete_multiple:
+      confirm: 确定要删除选定的留言吗？删除后将不能恢复。
+    display_name: "%{name} %{gender}"
+  user:
+    users:
+      one: "%{count}个用户"
+      other: "%{count}个用户"
+  helpers:
+    label:
+      message:
+        name: 姓名
+        phone_number: 联系电话
+        qq_number: QQ号码
+        title: 标题
+        content: 内容
+        visible_to: 谁可见？
+    submit:
+      message:
+        create: 提交留言
+        update: 保存更改
