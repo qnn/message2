@@ -6,6 +6,11 @@
 </div>
 
 <div class="field">
+  <b>IP address:</b>
+  <%= @message.ip_address %> (<%= @message.ip_info.presence || "n/a" %>)
+</div>
+
+<div class="field">
   <b>Name:</b>
   <%= @message.name %>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130623113146) do
+ActiveRecord::Schema.define(:version => 20130626061006) do
 
   create_table "flaggings", :force => true do |t|
     t.string   "flaggable_type"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20130623113146) do
     t.text     "content"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "ip_address"
+    t.string   "ip_info"
   end
 
   create_table "users", :force => true do |t|

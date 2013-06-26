@@ -54,6 +54,8 @@ class MessagesController < ApplicationController
   def show
     @message = Message.find(params[:id])
     @message.visible_to = @message.flaggings.with_flag(:visible_to)
+    @message.ip_info.gsub!(/,|:/, "\\0 ").gsub!('""', '(n/a)').gsub!(/\{|\}|"/, "") unless @message.ip_info.nil?
+
     if is_user?
       not_found and return unless @message.visible_to.empty? or
         @message.flagged_by?(current_user, :visible_to)
@@ -88,6 +90,27 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(params[:message])
+
+    @message.ip_address = request.remote_ip
+    http = Net::HTTP.new("int.dpool.sina.com.cn")
+    http.open_timeout = 5
+    http.read_timeout = 5
+    begin
+      http.start
+      begin
+        http.request_get("/iplookup/iplookup.php?format=js&ip=#{@message.ip_address}") do |response|
+          info = response.body[/{.*}/,0]
+          json = JSON.parse info
+          if json["ret"] == 1
+            json.slice!("country", "province", "city", "district", "isp")
+            @message.ip_info = json.to_json
+          end
+        end
+      rescue Timeout::Error
+      end
+    rescue Timeout::Error
+    end
+
     @show_editable_fields = true
 
     respond_to do |format|
