@@ -40,9 +40,11 @@ jQuery ($) ->
           $("#msgs_select").prop('checked', true)
     .click ->
       $(this).prop("checked", !$(this).prop("checked"))
+    .prop("checked", false)
     .dragCheck();
     $("tr.msgcb").click ->
       cb = $(this).find("input[name='messages[]']")
       cb.prop("checked", !cb.prop("checked")).trigger('change');
     $("#msgs_select").change ->
       $("input[name='messages[]']").prop("checked", $(this).prop("checked")).trigger('change');
+    .prop("checked", false)

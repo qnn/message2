@@ -47,8 +47,8 @@
     <%= f.submit %>
     <% if @message.id %>
       <%= link_to 'Back to Message', @message, :class => "button_link" %>
-      <%= link_to 'Back to List', messages_path, :class => "button_link" %>
-    <% end %>
+    <% end %>  
+    <%= link_to 'Back to List', messages_path, :class => "button_link" %>
     <span class="required">*</span>: required
   </div>
 <% end %>
