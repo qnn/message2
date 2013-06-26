@@ -14,3 +14,7 @@ jQuery ($) ->
     $("input[name='visible_to[]']").change(on_checkbox_change).trigger('change');
   $("#notice, #alert").delay(5000).fadeOut 200, ->
     $(this).remove();
+  $("input[type=submit]").prop("disabled", true);
+  setTimeout ->
+    $("input[type=submit]").prop("disabled", false);
+  , 2000

@@ -7,6 +7,8 @@ gem 'rails', '3.2.13'
 
 gem 'sqlite3'
 
+gem 'rack-throttle'
+
 gem 'devise'
 
 gem 'make_flaggable', :git => 'git://github.com/cavneb/make_flaggable.git'

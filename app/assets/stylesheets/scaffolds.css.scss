@@ -255,6 +255,17 @@ input[type=submit], input[type=button], .button_link {
     -o-box-shadow: $shadow3;
     box-shadow: $shadow3;
   }
+  &:disabled {
+    cursor: default;
+    color: #ccc;
+    &:hover {
+      text-shadow: 0px 1px 0px rgba(255,255,255,0.69);
+      -webkit-box-shadow: $shadow;
+      -moz-box-shadow: $shadow;
+      -o-box-shadow: $shadow;
+      box-shadow: $shadow;
+    }
+  }
 }
 
 .button_link {

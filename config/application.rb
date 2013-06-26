@@ -6,6 +6,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 require "sprockets/railtie"
+require "rack/throttle"
 # require "rails/test_unit/railtie"
 
 if defined?(Bundler)
@@ -15,8 +16,26 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+module Rack
+  module Throttle
+    class IntervalPosts < Interval
+      def allowed?(request)
+        return true if request.request_method == "GET"
+        super request
+      end
+    end
+    class Limiter
+      def http_error(code, message = nil, headers = {})
+        [code, {'Content-Type' => 'text/plain; charset=utf-8'}.merge(headers),
+        [http_status(code) + (message.nil? ? "\n" : " (#{message})\n")]]
+      end
+    end
+  end
+end
+
 module Message2
   class Application < Rails::Application
+    config.middleware.use Rack::Throttle::IntervalPosts, :min => 2.0
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
