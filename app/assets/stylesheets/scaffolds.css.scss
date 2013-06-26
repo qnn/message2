@@ -393,8 +393,6 @@ table.list {
   border-spacing: 0;
   width: 100%;
   thead {
-    background: #444;
-    color: #FFF;
     font-size: 12px;
   }
   th {
@@ -403,6 +401,9 @@ table.list {
   th.id, td.id {
     text-align: center;
     padding: 0 5px;
+  }
+  th.cb, td.cb {
+    padding: 0 0 0 5px;
   }
   td.name {
     width: 90px;
@@ -415,6 +416,12 @@ table.list {
   }
   td.visible_to, td.list_actions {
     white-space: nowrap;
+  }
+  tr.msgcb {
+    cursor: pointer;
+    &.checked {
+      background: #ff0;
+    }
   }
   thead tr {
     height: 30px;

@@ -20,3 +20,29 @@ jQuery ($) ->
     $("input[type=submit]").prop("disabled", false);
     $("a[data-method=delete]").removeClass("disabled");
   , 2000
+  if $("input[name='messages[]']").length>0
+    $("a[data-form2submit]").addClass("disabled");
+    $("a[data-form2submit]").click ->
+      if !$(this).hasClass("disabled")&&confirm($(this).data("fconfirm"))
+        $($(this).data("form2submit")).submit();
+    $("input[name='messages[]']").change ->
+      if ($(this).prop("checked"))
+        $(this).closest("tr").addClass("checked")
+      else
+        $(this).closest("tr").removeClass("checked")
+      checked = $("input[name='messages[]']:checked").length
+      if (checked==0)
+        $("a[data-form2submit]").addClass("disabled");
+        $("#msgs_select").prop('checked', false)
+      else
+        $("a[data-form2submit]").removeClass("disabled");
+        if checked == $("input[name='messages[]']").length
+          $("#msgs_select").prop('checked', true)
+    .click ->
+      $(this).prop("checked", !$(this).prop("checked"))
+    .dragCheck();
+    $("tr.msgcb").click ->
+      cb = $(this).find("input[name='messages[]']")
+      cb.prop("checked", !cb.prop("checked")).trigger('change');
+    $("#msgs_select").change ->
+      $("input[name='messages[]']").prop("checked", $(this).prop("checked")).trigger('change');

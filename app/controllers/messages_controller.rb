@@ -46,7 +46,11 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.json
   def show
-    @message = Message.find(params[:id])
+    begin
+      @message = Message.find(params[:id])
+    rescue
+      not_found and return
+    end
     @message.visible_to = @message.flaggings.with_flag(:visible_to)
     @message.ip_info.gsub!(/,|:/, "\\0 ").gsub!('""', '(n/a)').gsub!(/\{|\}|"/, "") unless @message.ip_info.nil?
 
@@ -75,7 +79,11 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
-    @message = Message.find(params[:id])
+    begin
+      @message = Message.find(params[:id])
+    rescue
+      not_found and return
+    end
     @show_editable_fields = is_admin?
     @visible_to = @message.flaggings.with_flag(:visible_to)
   end
@@ -158,6 +166,28 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to messages_url, notice: 'Message was successfully deleted.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def destroy_multiple
+    before = Message.count
+    begin
+      Message.destroy(params[:messages])
+    rescue ActiveRecord::RecordNotFound
+    end
+    after = Message.count
+    deleted = before - after
+    if deleted >= 2
+      notice = { notice: "#{deleted} messages were successfully deleted." }
+    elsif deleted == 1
+      notice = { notice: "One message was successfully deleted." }
+    else
+      notice = { alert: "Please select at least one message." }
+    end
+
+    respond_to do |format|
+      format.html { redirect_to messages_url, notice }
       format.json { head :no_content }
     end
   end
