@@ -34,4 +34,7 @@ Message2::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Rate Limit
+  config.middleware.use Rack::Throttle::IntervalPosts, :min => 2.0
 end
