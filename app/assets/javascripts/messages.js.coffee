@@ -20,8 +20,8 @@ jQuery ($) ->
     $("input[type=submit]").prop("disabled", false);
     $("a[data-method=delete]").removeClass("disabled");
   , 2000
+  $("a[data-form2submit]").addClass("disabled");
   if $("input[name='messages[]']").length>0
-    $("a[data-form2submit]").addClass("disabled");
     $("a[data-form2submit]").click ->
       if !$(this).hasClass("disabled")&&confirm($(this).data("fconfirm"))
         $($(this).data("form2submit")).submit();

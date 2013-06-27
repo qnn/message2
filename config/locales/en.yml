@@ -38,6 +38,7 @@ en:
     message:
       nothing_to_delete: Please select at least one message.
   message:
+    empty: No messages yet.
     date: Date
     visibility: Visibility
     actions: Actions

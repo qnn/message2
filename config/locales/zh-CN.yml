@@ -38,6 +38,7 @@ zh-CN:
     message:
       nothing_to_delete: 请至少选择一则留言。
   message:
+    empty: 尚无留言。
     date: 创建日期
     visibility: 谁可见？
     actions: 动作

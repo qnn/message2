@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  LOCALES = { en: "English", zh_CN: "中文" }
+  LOCALES = { en: "English", zh_CN: "简中" }
 
   def not_found
     render :file => "#{::Rails.root}/public/404", :layout => false, :status => :not_found

@@ -1,3 +1,4 @@
+<% if @messages.count > 0 %>
 <table class="list">
   <thead>
     <tr>
@@ -52,5 +53,11 @@
 </table>
 
 <%= will_paginate @messages, :inner_window => 3, :previous_label => '&laquo;', :next_label => '&raquo;', :renderer => 'PaginationListLinkRenderer' %>
+
+<% else %>
+
+<div><%= t "message.empty" %></div>
+
+<% end %>
 
 <div class="separator"></div>
