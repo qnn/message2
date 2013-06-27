@@ -16,6 +16,25 @@ zh-CN:
     Messages: 留言管理
     Users: 用户管理
     Sign_Out: 退出
+  notice:
+    message:
+      created: 成功创建留言。
+      updated: 成功更新留言。
+      deleted: 成功删除留言。
+      multiple_deleted:
+        one: 成功删除一则留言。
+        other: "成功删除 %{count} 则留言。"
+    user:
+      created: 成功创建用户。
+      updated: 成功更新用户资料。
+      deleted: 成功删除用户。
+      delete_self: 你不能删除你自己。
+      delete_admin_with_smaller_ID: 你不能删除ID比你小的管理员。
+      no_admins: 你不能更改此用户的用户组，否则将无人担当管理员。
+      no_longer_admin: 你不再是管理员了。
+  alert:
+    message:
+      nothing_to_delete: 请至少选择一则留言。
   message:
     date: 创建日期
     visibility: 谁可见？
@@ -39,6 +58,9 @@ zh-CN:
     untitled: 无标题
     not_provided: 无提供
     Make_Public: 设为公开
+    error_saving:
+      one: 保存留言时发生1个错误
+      other: "保存留言时发生%{count}个错误"
   user:
     users:
       one: "%{count}个用户"
@@ -58,6 +80,9 @@ zh-CN:
     current_password_info: 输入你的密码以确认身份
     you_can_leave_this_blank: 如不更改，请留空
     Sign_In: 登录
+    error_saving:
+      one: 保存用户资料时发生1个错误
+      other: "保存用户资料时发生%{count}个错误"
   helpers:
     label:
       message:
@@ -96,3 +121,50 @@ zh-CN:
         create: 创建新用户
         update: 保存更改
   sign_out_confirm: 确定要退出吗？
+  activerecord:
+    attributes:
+        message:
+          name: 名字
+          title: 标题
+          content: 内容
+          gender: 称谓
+          phone_number: 联系电话
+          qq_number: QQ号码
+        user:
+          username: 用户名
+          role: 用户组
+          email: 电邮地址
+          password: 密码
+          current_password: 当前密码
+    errors:
+      models:
+        message:
+          blank: 不能为空
+          too_long: "太长，最长 %{count} 个字符。"
+          too_short: "太短，最少 %{count} 个字符。"
+          invalid: 不合法
+          inclusion: 需指定一种
+          attributes:
+            name:
+              invalid: 只能是由英文字母、空格、中文字符或数字组成，且长度介乎1至30
+            phone_number:
+              invalid: 含有异常字符，正确的示例有：(020) 12345678
+            qq_number:
+              invalid: 只能由数字组成，且长度介乎5至13
+            gender:
+              blank: 需指定一种
+              invalid: 需指定一种
+        user:
+          blank: 不能为空
+          too_long: "太长，最长 %{count} 个字符。"
+          too_short: "太短，最少 %{count} 个字符。"
+          invalid: 不合法
+          inclusion: 需指定一种
+          attributes:
+            role:
+              blank: 需指定一种
+              invalid: 需指定一种
+            username:
+              invalid: 只能是由英文字母、中文字符或数字组成，且长度介乎3至16
+            email:
+              invalid: 不是一个有效的电邮地址，正确的示例有：example@qq.com

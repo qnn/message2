@@ -1,15 +1,16 @@
+# encoding: utf-8
 class Message < ActiveRecord::Base
   USER_GENDER = %w(Mr. Ms.)
 
   attr_accessible :name, :gender, :phone_number, :qq_number, :title, :content
 
   validates_presence_of :name, :gender, :phone_number, :content
-  validates :name, :length => { :maximum => 30 }
+  validates_format_of :name, :with => /^[0-9a-zA-Z \p{Han}]{1,30}$/
   validates :gender, :numericality => { :only_integer => true,
     :greater_than_or_equal_to => 0, :less_than => USER_GENDER.length,
-    :message => "is not valid" }
-  validates :phone_number, :length => { :maximum => 20, :minimum => 5, :allow_blank => true }
-  validates :qq_number, :length => { :maximum => 13, :minimum => 5, :allow_blank => true }
+    :message => I18n::t("activerecord.errors.models.message.attributes.gender.invalid") }
+  validates_format_of :phone_number, :with => /^[0-9\(\)\/\+ \-]{5,20}$/
+  validates_format_of :qq_number, :with => /^[0-9]{5,13}$/, :allow_blank => true
   validates :title, :length => { :maximum => 200 }
   validates :content, :length => { :maximum => 20000 }
 

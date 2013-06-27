@@ -1,1 +1,20 @@
 en:
+  notice:
+    message:
+      created: Message was successfully created.
+      updated: Message was successfully updated.
+      deleted: Message was successfully deleted.
+      multiple_deleted:
+        one: One message was successfully deleted.
+        other: "%{count} messages were successfully deleted."
+    user:
+      created: User was successfully created.
+      updated: User was successfully updated.
+      deleted: User was successfully deleted.
+      delete_self: You cannot delete yourself.
+      delete_admin_with_smaller_ID: You cannot delete admins with smaller ID than yours.
+      no_admins: You can not change the role of this user. Because there will be no admins.
+      no_longer_admin: You are no longer an admin.
+  alert:
+    message:
+      nothing_to_delete: Please select at least one message.

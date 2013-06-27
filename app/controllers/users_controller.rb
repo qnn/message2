@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'user.created' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     admin_count = User.where("role = ?", "admin").count
     if @user.role == "admin" && params[:user][:role] != "admin"
       if admin_count <= 1
-        redirect_to :back, notice: 'You can not change the role of this user. Because there will be no admins.'
+        redirect_to :back, notice: 'user.no_admins'
         return
       else
         force_log_out = true if @user.id == current_user.id
@@ -84,9 +84,9 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         if force_log_out
           sign_out current_user
-          format.html { redirect_to root_path, notice: 'You are no longer an admin.' }
+          format.html { redirect_to root_path, notice: 'user.no_longer_admin' }
         else
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+          format.html { redirect_to @user, notice: 'user.updated' }
         end
         format.json { head :no_content }
       else
@@ -102,17 +102,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.id == current_user.id
-      redirect_to :back, notice: 'You cannot delete yourself.'
+      redirect_to :back, notice: 'user.delete_self'
       return
     elsif @user.id < current_user.id
-      redirect_to :back, notice: 'You cannot delete admins with smaller ID than yours.'
+      redirect_to :back, notice: 'user.delete_admin_with_smaller_ID'
       return
     end
 
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully deleted.' }
+      format.html { redirect_to users_url, notice: 'user.deleted' }
       format.json { head :no_content }
     end
   end

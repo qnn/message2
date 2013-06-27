@@ -1,0 +1,55 @@
+zh-CN:
+  errors:
+    messages:
+      expired: 你已过期，请重新申请
+      not_found: 没有找到
+      already_confirmed: 已经确认，请重新登录.
+      not_locked: 未锁定
+      not_saved:
+        one: 保存用户资料时发生1个错误：
+        other: "保存用户资料时发生%{count}个错误："
+  devise:
+    failure:
+      already_authenticated: 你已经登录。
+      unauthenticated: 继续操作前请注册或者登录。
+      unconfirmed: 继续操作前请先确认你的帐号。
+      locked: 你的帐号已被锁定。
+      invalid: 登录名或密码错误
+      invalid_token: 认证码无效。
+      timeout: 你已登录超时，请重新登录。
+      inactive: 你还没有激活帐户。
+    sessions:
+      signed_in: 成功登录。
+      signed_out: 成功退出。
+    passwords:
+      send_instructions: 几分钟后，你将收到重置密码的电子邮件。
+      updated: 你的密码已修改成功，你现在已登录。
+      updated_not_active: 你的密码已修改成功。
+      send_paranoid_instructions: 如果你的邮箱存在于我们的数据库中，你将收到一封找回密码的邮件。
+    confirmations:
+      send_instructions: 几分钟后，你将收到确认帐号的电子邮件。
+      confirmed: 你的帐号已经确认，你现在已登录。
+      send_paranoid_instructions: 如果你的邮箱存在于我们的数据库中，你将收到一封确认账号的邮件。
+    registrations:
+      signed_up: 欢迎你！你已成功注册。
+      updated: 帐号资料成功更新。
+      destroyed: 再见！你的帐户已成功注销。我们希望很快可以再见到你。
+      inactive_signed_up: "虽然你已经成功注册，但因为%{reason}，所以你依然无法登录。"
+      reasons:
+        inactive: 未激活
+        unconfirmed: 未确认
+        locked: 已锁定
+    unlocks:
+      send_instructions: 几分钟后，你将收到一封解锁帐号的邮件。
+      unlocked: 你的帐号已成功解锁，你现在已登录。
+      send_paranoid_instructions: 如果你的邮箱存在于我们的数据库中，你将收到一封解锁账号的邮件。
+    omniauth_callbacks:
+      success: "成功地从%{kind}获得授权。"
+      failure: "因为%{reason}，所以你无法从%{kind}获得授权。"
+    mailer:
+      confirmation_instructions:
+        subject: 确认信息
+      reset_password_instructions:
+        subject: 重置密码信息
+      unlock_instructions:
+        subject: 解锁信息

@@ -117,7 +117,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to new_message_path, notice: 'Message was successfully created.' }
+        format.html { redirect_to new_message_path, notice: 'message.created' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }
@@ -144,11 +144,11 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if is_moderator?
         # moderator can't update message
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+        format.html { redirect_to @message, notice: 'message.updated' }
         format.json { head :no_content }
       else
         if @message.update_attributes(params[:message])
-          format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+          format.html { redirect_to @message, notice: 'message.updated' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }
@@ -165,7 +165,7 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: 'Message was successfully deleted.' }
+      format.html { redirect_to messages_url, notice: 'message.deleted' }
       format.json { head :no_content }
     end
   end
@@ -178,12 +178,10 @@ class MessagesController < ApplicationController
     end
     after = Message.count
     deleted = before - after
-    if deleted >= 2
-      notice = { notice: "#{deleted} messages were successfully deleted." }
-    elsif deleted == 1
-      notice = { notice: "One message was successfully deleted." }
+    if deleted >= 1
+      notice = { notice: I18n.t("notice.message.multiple_deleted", count: deleted ) }
     else
-      notice = { alert: "Please select at least one message." }
+      notice = { alert: "message.nothing_to_delete" }
     end
 
     respond_to do |format|
