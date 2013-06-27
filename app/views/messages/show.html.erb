@@ -76,5 +76,8 @@
   <% if %w(admin moderator).include? current_user.role %>
     <%= link_to t('message.Edit_Message'), edit_message_path(@message), :class => "button_link" %>
   <% end %>
+  <% if is_admin? %>
+    <%= link_to t('Delete'), @message, method: :delete, data: { confirm: t('message.delete.confirm') }, :class => "button_link" %>
+  <% end %>
   <%= link_to t('message.Back_to_List'), messages_path, :class => "button_link" %>
 </div>

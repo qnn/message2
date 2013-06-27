@@ -46,9 +46,12 @@
   <div class="actions">
     <%= f.submit %>
     <% if @message.id %>
+      <% if is_admin? %>
+        <%= link_to t('Delete'), @message, method: :delete, data: { confirm: t('message.delete.confirm') }, :class => "button_link" %>
+      <% end %>
       <%= link_to t('message.Back_to_Message'), @message, :class => "button_link" %>
-    <% end %>  
-    <%= link_to t('message.Back_to_List'), messages_path, :class => "button_link" %>
+      <%= link_to t('message.Back_to_List'), messages_path, :class => "button_link" %>
+    <% end %>
     <span class="required">*</span>: <%= t "required" %>
   </div>
 <% end %>
