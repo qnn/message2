@@ -67,6 +67,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     force_log_out = false
+    should_go_to_root = false
     admin_count = User.where("role = ?", "admin").count
     if @user.role == "admin" && params[:user][:role] != "admin"
       if admin_count <= 1
@@ -75,6 +76,11 @@ class UsersController < ApplicationController
       else
         force_log_out = true if @user.id == current_user.id
       end
+    end
+
+    # current admin changed its password, need to logout and should go to root.
+    if @user.id == current_user.id and !params[:user][:password].empty?
+      should_go_to_root = true
     end
 
     # don't change password if it is empty
@@ -86,7 +92,11 @@ class UsersController < ApplicationController
           sign_out current_user
           format.html { redirect_to root_path, notice: 'user.no_longer_admin' }
         else
-          format.html { redirect_to @user, notice: 'user.updated' }
+          if should_go_to_root
+            format.html { redirect_to root_path, notice: 'user.updated' }
+          else
+            format.html { redirect_to @user, notice: 'user.updated' }
+          end
         end
         format.json { head :no_content }
       else
