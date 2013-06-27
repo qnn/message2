@@ -182,6 +182,10 @@ $width: 800px;
   margin-bottom: 20px;
 }
 
+textarea {
+  max-width: $width - 100;
+}
+
 input, textarea {
   font-size: 14px;
 }
