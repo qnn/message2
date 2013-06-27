@@ -33,7 +33,11 @@
         <% if I18n.locale.to_s == a.to_s.gsub(/_/,"-") %>
           <b><%= b %></b>
         <% else %>
-          <%= link_to b, { locale: a.to_s.gsub(/_/,"-") }, class: "link" %>
+          <% unless request.method == "GET" %>
+            <%= link_to b, root_path({ locale: a.to_s.gsub(/_/,"-") }), class: "link" %>
+          <% else %>
+            <%= link_to b, { locale: a.to_s.gsub(/_/,"-") }, class: "link" %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
