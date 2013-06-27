@@ -16,15 +16,15 @@ feature "Message visibility" do
     expect(page).to have_selector checkbox
     find(checkbox).should_not be_checked
     check "visible_to_#{user001.id}"
-    click_button "Update Message"
+    click_button "Save Changes"
     visit edit_message_path(message)
     find(checkbox).should be_checked
 
     click_link "Sign Out"
     visit new_user_session_path
-    fill_in "Login", :with => user001.username
-    fill_in "Password", :with => password
-    click_button "Sign in"
+    fill_in "user_login", :with => user001.username
+    fill_in "user_password", :with => password
+    click_button "Sign In"
     visit messages_path
     expect(page).to have_selector "a[href='#{message_path(message)}']"
     visit message_path(message)
@@ -33,9 +33,9 @@ feature "Message visibility" do
 
     click_link "Sign Out"
     visit new_user_session_path
-    fill_in "Login", :with => user002.username
-    fill_in "Password", :with => password
-    click_button "Sign in"
+    fill_in "user_login", :with => user002.username
+    fill_in "user_password", :with => password
+    click_button "Sign In"
     visit messages_path
     expect(page).to_not have_selector "a[href='#{message_path(message)}']"
     visit message_path(message)

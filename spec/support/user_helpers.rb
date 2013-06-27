@@ -5,9 +5,9 @@ module UserHelpers
     User.create([{ email: "test@example.com", password: password, username: username, role:"admin" }])
     @admin = User.where("username = ?", username).first
     visit new_user_session_path
-    fill_in "Login", :with => username
-    fill_in "Password", :with => password
-    click_button "Sign in"
+    fill_in "user_login", :with => username
+    fill_in "user_password", :with => password
+    click_button "Sign In"
   end
 
   def it_should_not_have_access_to_crud_user(user)

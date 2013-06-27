@@ -7,7 +7,7 @@ feature "Admin has all priviledges" do
 
   scenario "admin can create, edit and delete message" do
     visit messages_path
-    expect(page).to have_content "Listing messages"
+    expect(page).to have_content "Listing Messages"
 
     create_new_message
     expect(page).to have_content "Message was successfully created."
@@ -16,12 +16,12 @@ feature "Admin has all priviledges" do
     visit edit_message_path(message)
     fill_in "Name", :with => "Sheldon Cooper"
     select "Mr.", :from => "message_gender"
-    fill_in "Phone number", :with => "0987654321"
+    fill_in "Phone Number", :with => "0987654321"
     fill_in "Title", :with => "I'm testing if I can edit this message."
     fill_in "Content", :with => "Lorem ipsum dolor sit amet, \
       consectetur adipisicing elit, sed do eiusmod tempor \
       incididunt ut labore et dolore magna aliqua."
-    click_button "Update Message"
+    click_button "Save Changes"
     expect(page).to have_content "Message was successfully updated."
 
     visit messages_path
@@ -31,7 +31,7 @@ feature "Admin has all priviledges" do
 
   scenario "admin can create, read, update and delete user" do
     visit users_path
-    expect(page).to have_content "Listing users"
+    expect(page).to have_content "Listing Users"
     expect(page).to have_selector "a[href='#{users_path}']"
 
     username = "CommanderShepard"
@@ -42,7 +42,7 @@ feature "Admin has all priviledges" do
     fill_in "Username", :with => username
     fill_in "Email", :with => email
     fill_in "Password", :with => password
-    click_button "Create User"
+    click_button "New User"
     expect(page).to have_content "User was successfully created."
 
     expect(page).to have_content email
@@ -52,7 +52,7 @@ feature "Admin has all priviledges" do
     click_link "Edit"
     select "Moderator", :from => "Role"
     fill_in "Username", :with => username.reverse
-    click_button "Update User"
+    click_button "Save Changes"
     expect(page).to have_content "User was successfully updated."
 
     click_link "Delete"
@@ -66,9 +66,9 @@ feature "Admin has all priviledges" do
     User.create([{ email: "test2@example.com", password: password, username: username, role:"admin" }])
     admin2 = User.where("username = ?", username).first
     visit new_user_session_path
-    fill_in "Login", :with => username
-    fill_in "Password", :with => password
-    click_button "Sign in"
+    fill_in "user_login", :with => username
+    fill_in "user_password", :with => password
+    click_button "Sign In"
 
     visit user_path(admin2.id)
     click_link "Delete"
@@ -83,7 +83,7 @@ feature "Admin has all priviledges" do
     # there is only one admin
     visit edit_user_path(@admin.id)
     select "User", :from => "Role"
-    click_button "Update User"
+    click_button "Save Changes"
     expect(page).to have_content "You can not change the role of this user. Because there will be no admins."
 
     # create another user
@@ -96,7 +96,7 @@ feature "Admin has all priviledges" do
     # now you can change @admin's role while there is more than one admin
     visit edit_user_path(@admin.id)
     select "User", :from => "Role"
-    click_button "Update User"
+    click_button "Save Changes"
     expect(page).to have_content "You are no longer an admin."
   end
 end
@@ -108,9 +108,9 @@ feature "Moderator can create/read all messages and make message visible to spec
     User.create([{ email: "moderator001@example.com", password: password, username: username, role:"moderator" }])
     @user = User.where("username = ?", username).first
     visit new_user_session_path
-    fill_in "Login", :with => username
-    fill_in "Password", :with => password
-    click_button "Sign in"
+    fill_in "user_login", :with => username
+    fill_in "user_password", :with => password
+    click_button "Sign In"
   end
 
   scenario "Moderator wants to create, read, update or delete message" do
@@ -137,7 +137,7 @@ feature "Moderator can create/read all messages and make message visible to spec
     expect(page).to_not have_selector "input#message_title"
     expect(page).to_not have_selector "textarea#message_content"
     expect(page).to have_selector "input[name='visible_to[]']"
-    click_button "Update Message"
+    click_button "Save Changes"
 
     page.driver.submit :delete, message_path(message), {}
     page.status_code.should == 404
@@ -157,9 +157,9 @@ feature "User can only create and read public/private messages" do
     User.create([{ email: "user001@example.com", password: @password, username: username, role:"user" }])
     @user = User.where("username = ?", username).first
     visit new_user_session_path
-    fill_in "Login", :with => username
-    fill_in "Password", :with => @password
-    click_button "Sign in"
+    fill_in "user_login", :with => username
+    fill_in "user_password", :with => @password
+    click_button "Sign In"
   end
 
   scenario "User wants to create, read, update or delete message" do
@@ -199,7 +199,7 @@ feature "User can only create and read public/private messages" do
     page.status_code.should == 200
     expect(page).to_not have_field "Username"
     expect(page).to_not have_field "Email"
-    fill_in "Current password", :with => @password
+    fill_in "Current Password", :with => @password
     click_button "Update"
     expect(page).to have_content "You have updated your account successfully."
   end
