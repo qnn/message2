@@ -1,3 +1,5 @@
+require 'net/http'
+
 class MessagesController < ApplicationController
 
   before_filter :check_priviledges, :except => [:new, :create]
