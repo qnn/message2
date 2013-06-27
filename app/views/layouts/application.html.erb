@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Message2</title>
+  <title><%= t 'Message2' %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -28,8 +28,13 @@
       <%= yield %>
     </div>
     <div id="footer">
+      <%= t 'Languages' %>:
       <% ApplicationController::LOCALES.each do |a,b| %>
-        <%= link_to b, locale: a.to_s.gsub(/_/,"-") %>
+        <% if I18n.locale.to_s == a.to_s.gsub(/_/,"-") %>
+          <b><%= b %></b>
+        <% else %>
+          <%= link_to b, { locale: a.to_s.gsub(/_/,"-") }, class: "link" %>
+        <% end %>
       <% end %>
     </div>
   </div>
