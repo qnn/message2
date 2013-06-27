@@ -1,4 +1,21 @@
 en:
+  n/a: n/a
+  required: required
+  Edit: Edit
+  Delete: Delete
+  Update: Update
+  gender:
+    Mr: Mr.
+    Ms: Ms.
+  role:
+    admin: Admin
+    moderator: Moderator
+    user: User
+  menu:
+    New_Message: New Message
+    Messages: Messages
+    Users: Users
+    Sign_Out: Sign Out
   notice:
     message:
       created: Message was successfully created.
@@ -18,3 +35,136 @@ en:
   alert:
     message:
       nothing_to_delete: Please select at least one message.
+  message:
+    date: Date
+    visibility: Visibility
+    actions: Actions
+    Back_to_Message: Back to Message
+    Back_to_List: Back to List
+    Listing_Messages: Listing Messages
+    New_Message: New Message
+    Message_Details: Message Details
+    Delete_Selected: Delete Selected
+    Editing_Message: Editing Message
+    Edit_Message: Edit Message
+    All: All
+    Only_you: Only you
+    You_and_others: "You and %{count} others"
+    delete:
+      confirm: Are you sure you want to delete this message? This operation is irreversible.
+    delete_multiple:
+      confirm: Are you sure you want to delete these selected messages? This operation is irreversible.
+    display_name: "%{gender} %{name}"
+    untitled: untitled
+    not_provided: not provided
+    Make_Public: Make Public
+    error_saving:
+      one: One error prohibited this message from being saved
+      other: "%{count} errors prohibited this message from being saved"
+  user:
+    users:
+      one: "one user"
+      other: "%{count} users"
+    Back_to_User: Back to User
+    Back_to_List: Back to List
+    User_Details: User Details
+    New_User: New User
+    Editing_User: Editing User
+    delete:
+      confirm: Are you sure you want to delete this user? This operation is irreversible.
+    Total_Sign_ins: Total Sign-ins
+    Last_Sign_In: Last Sign In
+    actions: Actions
+    Listing_Users: Listing Users
+    Edit_My_Info: Edit My Info
+    current_password_info: we need your current password to confirm your changes
+    you_can_leave_this_blank: leave blank if you don't want to change it
+    Sign_In: Sign In
+    error_saving:
+      one: One error prohibited this user info from being saved
+      other: "%{count} errors prohibited this user info from being saved"
+  helpers:
+    label:
+      message:
+        name: Name
+        phone_number: Phone Number
+        qq_number: QQ Number
+        title: Title
+        content: Content
+        visible_to: Visible To
+        created_at: Created At
+        ip_address: IP Address
+        gender: Gender
+      user:
+        id: ID
+        role: Role
+        login: Username or Email Address
+        username: Username
+        email: Email Address
+        password: Password
+        remember_me: Remember Me
+        remember_created_at: Remember Me Created At
+        sign_in_count: Sign In Count
+        current_sign_in_at: Current Sign In At
+        last_sign_in_at: Last Sign In At
+        current_sign_in_ip: Current Sign In IP Address
+        last_sign_in_ip: Last Sign In IP Address
+        created_at: Created At
+        updated_at: Updated At
+        password_confirmation: Password Confirmation
+        current_password: Current Password
+    submit:
+      message:
+        create: Submit
+        update: Save Changes
+      user:
+        create: Create New User
+        update: Save Changes
+  sign_out_confirm: Are you sure you want to sign out?
+  activerecord:
+    attributes:
+        message:
+          name: Name
+          title: Title
+          content: Content
+          gender: Gender
+          phone_number: Phone Number
+          qq_number: QQ Number
+        user:
+          username: Username
+          role: Role
+          email: Email Address
+          password: Password
+          current_password: Current Password
+    errors:
+      models:
+        message:
+          blank: can't be blank.
+          too_long: "is too long. Should be less than %{count} characters."
+          too_short: "is too short. Should be more than %{count} characters."
+          invalid: is not valid.
+          inclusion: in invalid.
+          attributes:
+            name:
+              invalid: "must contain only letters, space, Chinese characters or numbers and should be 1 to 30 characters long."
+            phone_number:
+              invalid: "is not valid. Valid example: (020) 12345678 ."
+            qq_number:
+              invalid: must contain only numbers and should be 5 to 13 characters long.
+            gender:
+              blank: is not valid.
+              invalid: is not valid.
+        user:
+          blank: can't be blank
+          too_long: "is too long. Should be less than %{count} characters."
+          too_short: "is too short. Should be more than %{count} characters."
+          invalid: is not valid.
+          inclusion: in invalid.
+          attributes:
+            role:
+              blank: is not valid.
+              invalid: is not valid.
+            username:
+              invalid: "must contain only letters, Chinese characters or numbers and should be 3 to 16 characters long."
+            email:
+              invalid: "is not a valid. Valid example: example@qq.com"
