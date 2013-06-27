@@ -14,9 +14,6 @@ Message2::Application.routes.draw do
     collection do
       delete :destroy_multiple
     end
-    member do
-      get :new, to: redirect {|p, req| "/?#{req.query_parameters.to_query}" }
-    end
   end
   resources :users
   root :to => "messages#new"
