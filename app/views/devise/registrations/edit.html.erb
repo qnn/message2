@@ -1,4 +1,4 @@
-<h1>Edit my info</h1>
+<h1><%= t 'user.Edit_My_Info' %></h1>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -10,22 +10,22 @@
     <div class="field"><%= f.label :email %> <span class="required">*</span><br />
     <%= f.email_field :email %></div>
   <% else %>
-    <div class="field">Username<br /><%= resource.username %></div>
-    <div class="field">Email<br /><%= resource.email %></div>
+    <div class="field"><%= t 'helpers.label.user.username' %><br /><%= resource.username %></div>
+    <div class="field"><%= t 'helpers.label.user.email' %><br /><%= resource.email %></div>
   <% end %>
 
-  <div class="field"><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <div class="field"><%= f.label :password %> <i>(<%= t 'user.you_can_leave_this_blank' %>)</i><br />
   <%= f.password_field :password %></div>
 
   <div class="field"><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div class="field"><%= f.label :current_password %> <span class="required">*</span> <i>(we need your current password to confirm your changes)</i><br />
+  <div class="field"><%= f.label :current_password %> <span class="required">*</span> <i>(<%= t 'user.current_password_info' %>)</i><br />
   <%= f.password_field :current_password %></div>
   
   <div class="separator"></div>
   <div class="actions">
-    <%= f.submit "Update" %>
-    <span class="required">*</span>: required
+    <%= f.submit t("Update") %>
+    <span class="required">*</span>: <%= t 'required' %>
   </div>
 <% end %>

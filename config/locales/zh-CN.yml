@@ -1,10 +1,16 @@
 zh-CN:
+  n/a: 未知
   required: 必填项
   Edit: 编辑
   Delete: 删除
+  Update: 更新
   gender:
     Mr: 先生
     Ms: 女士
+  role:
+    admin: 管理员
+    moderator: 组长
+    user: 用户
   menu:
     New_Message: 新增留言
     Messages: 留言管理
@@ -18,8 +24,10 @@ zh-CN:
     Back_to_List: 回到留言列表
     Listing_Messages: 留言列表
     New_Message: 新增留言
+    Message_Details: 留言详细
     Delete_Selected: 删除选定留言
     Editing_Message: 编辑留言
+    Edit_Message: 编辑留言
     All: 所有人
     Only_you: 只是你
     You_and_others: "你和另外%{count}人"
@@ -28,10 +36,28 @@ zh-CN:
     delete_multiple:
       confirm: 确定要删除选定的留言吗？删除后将不能恢复。
     display_name: "%{name} %{gender}"
+    untitled: 无标题
+    not_provided: 无提供
+    Make_Public: 设为公开
   user:
     users:
       one: "%{count}个用户"
       other: "%{count}个用户"
+    Back_to_User: 回到用户详细页
+    Back_to_List: 回到用户列表
+    User_Details: 用户详细
+    New_User: 新增用户
+    Editing_User: 编辑用户
+    delete:
+      confirm: 确定要删除这个用户吗？删除后将不能恢复。
+    Total_Sign_ins: 总登录次数
+    Last_Sign_In: 最近登录时间
+    actions: 动作
+    Listing_Users: 用户列表
+    Edit_My_Info: 更新账户资料
+    current_password_info: 输入你的密码以确认身份
+    you_can_leave_this_blank: 如不更改，请留空
+    Sign_In: 登录
   helpers:
     label:
       message:
@@ -41,7 +67,32 @@ zh-CN:
         title: 标题
         content: 内容
         visible_to: 谁可见？
+        created_at: 留言创建时间
+        ip_address: 留言者IP地址
+        gender: 称谓
+      user:
+        id: ID
+        role: 用户组
+        login: 用户名或电邮地址
+        username: 用户名
+        email: 电邮地址
+        password: 密码
+        remember_me: 记住登录信息
+        remember_created_at: 上次使用“记住我”选项的时间
+        sign_in_count: 总登录次数
+        current_sign_in_at: 当前登录时间
+        last_sign_in_at: 上次登录时间
+        current_sign_in_ip: 当前登录IP地址
+        last_sign_in_ip: 上次登录IP地址
+        created_at: 用户创建时间
+        updated_at: 用户更新时间
+        password_confirmation: 重输密码
+        current_password: 当前使用的密码
     submit:
       message:
         create: 提交留言
         update: 保存更改
+      user:
+        create: 创建新用户
+        update: 保存更改
+  sign_out_confirm: 确定要退出吗？

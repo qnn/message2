@@ -1,27 +1,27 @@
-<h1>Listing users</h1>
+<h1><%= t 'user.Listing_Users' %></h1>
 
 <table class="list">
   <thead>
     <tr>
       <th class="id">ID</th>
-      <th>Role</th>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Total Sign-ins / Last Sign In</th>
-      <th>Actions</th>
+      <th><%= t 'helpers.label.user.role' %></th>
+      <th><%= t 'helpers.label.user.username' %></th>
+      <th><%= t 'helpers.label.user.email' %></th>
+      <th><%= t 'user.Total_Sign_ins' %> / <%= t 'user.Last_Sign_In' %></th>
+      <th><%= t 'user.actions' %></th>
     </tr>
   </thead>
   <tbody>
 <% @users.each do |user| %>
     <tr>
     	<td class="id"><%= user.id %></td>
-      <td><%= user.role %></td>
+      <td><%= t "role.#{user.role}" %></td>
       <td><%= link_to user.username, user, :class => "link" %></td>
       <td><%= user.email %></td>
       <td><%= user.sign_in_count %> / <%= user.last_sign_in_at ? l(user.last_sign_in_at, format: "%Y-%m-%d %H:%M:%S") : "n/a" %></td>
       <td class="list_actions">
-        <%= link_to 'Edit', edit_user_path(user), :class => "button_link" %>
-        <%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
+        <%= link_to t('Edit'), edit_user_path(user), :class => "button_link" %>
+        <%= link_to t('Delete'), user, method: :delete, data: { confirm: t('user.delete.confirm') }, :class => "button_link" %>
       </td>
     </tr>
 <% end %>    
@@ -31,5 +31,5 @@
 <div class="separator"></div>
 
 <div class="actions">
-  <%= link_to 'New User', new_user_path, :class => "button_link" %>
+  <%= link_to t('user.New_User'), new_user_path, :class => "button_link" %>
 </div>

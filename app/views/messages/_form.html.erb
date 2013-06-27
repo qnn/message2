@@ -14,7 +14,7 @@
     <div class="field">
       <%= f.label :name %> <span class="required">*</span><br />
       <%= f.text_field :name %>
-      <%= f.collection_select :gender, Message::USER_GENDER, :gender_index, :to_s %>
+      <%= f.collection_select :gender, Message::USER_GENDER, :gender_index, :gender_name %>
     </div>
     <div class="field">
       <%= f.label :phone_number %> <span class="required">*</span><br />
@@ -35,10 +35,10 @@
   <% end %>
   <% if !@visible_to.nil? %>
     <div class="field">
-      <%= f.label :visible_to %> <%= link_to 'Make Public', 'javascript:;', id: 'make_public', class: 'link' %><br />
+      <%= f.label :visible_to %> <%= link_to t('message.Make_Public'), 'javascript:;', id: 'make_public', class: 'link' %><br />
   	<% User.all.each do |user| %>
   	<%= check_box_tag "visible_to[]", user.id, @visible_to.where("flagger_id = ?", user.id).present?, :id => "visible_to_#{user.id}" %>
-  	<%= label_tag "visible_to_#{user.id}", "[#{user.role}] #{user.username} <#{user.email}>" %><br />
+  	<%= label_tag "visible_to_#{user.id}", "[#{t('role.'+user.role)}] #{user.username} <#{user.email}>" %><br />
   	<% end %>
     </div>
   <% end %>

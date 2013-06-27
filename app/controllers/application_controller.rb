@@ -28,3 +28,13 @@ class ApplicationController < ActionController::Base
   end
 
 end
+
+class String
+  def gender_name
+    I18n::translate "gender.#{self}"
+  end
+
+  def role_name
+    I18n::translate "role.#{self}"
+  end
+end

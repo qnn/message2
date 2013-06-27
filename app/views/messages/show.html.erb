@@ -1,69 +1,69 @@
-<h1>Message details</h1>
+<h1><%= t "message.Message_Details" %></h1>
 
 <div class="field">
-  <b>Created at:</b>
+  <b><%= t "helpers.label.message.created_at" %>:</b>
   <%= @message.created_at %>
 </div>
 
 <div class="field">
-  <b>IP address:</b>
-  <%= @message.ip_address %> (<%= @message.ip_info.presence || "n/a" %>)
+  <b><%= t "helpers.label.message.ip_address" %>:</b>
+  <%= @message.ip_address %> (<%= @message.ip_info.presence || t("n/a") %>)
 </div>
 
 <div class="field">
-  <b>Name:</b>
+  <b><%= t "helpers.label.message.name" %>:</b>
   <%= @message.name %>
 </div>
 
 <div class="field">
-  <b>Gender:</b>
-  <%= Message::USER_GENDER.try(:[], @message.gender) %>
+  <b><%= t "helpers.label.message.gender" %>:</b>
+  <%= t "gender.#{Message::USER_GENDER.try(:[], @message.gender)}" %>
 </div>
 
 <div class="field">
-  <b>Phone number:</b>
+  <b><%= t "helpers.label.message.phone_number" %>:</b>
   <%= @message.phone_number %>
 </div>
 
 <div class="field">
-  <b>Qq number:</b>
-  <%= @message.qq_number.presence || "(not provided)" %>
+  <b><%= t "helpers.label.message.qq_number" %>:</b>
+  <%= @message.qq_number.presence || "(#{t("message.not_provided")})" %>
 </div>
 
 <div class="field">
-  <b>Title:</b>
-  <%= @message.title.presence || "(untitled)" %>
+  <b><%= t "helpers.label.message.title" %>:</b>
+  <%= @message.title.presence || "(#{t("message.untitled")})" %>
 </div>
 
 <div class="field">
-  <b>Content:</b>
+  <b><%= t "helpers.label.message.content" %>:</b>
   <%= simple_format @message.content %>
 </div>
 
 <div class="field">
-  <b>Visible to:</b><br />
+  <b><%= t "helpers.label.message.visible_to" %>:</b><br />
   <% if current_user.present? %>
   <% if %w(admin moderator).include? current_user.role %>
     <% if @message.visible_to.empty? %>
-    	All
+    	<%= t 'message.All' %>
     <% else %>
       <% @message.visible_to.each do |v| %>
     		<% user = User.find(v.flagger_id) %>
-  			[<%= user.role %>] <%= user.username %> &lt;<%= user.email %>&gt;<br />
+  			[<%= t "role.#{user.role}" %>] <%= user.username %> &lt;<%= user.email %>&gt;<br />
       <% end %>
     <% end %>  
   <% else %>
     <% if @message.visible_to.count == 0 %>
-      All
+      <%= t 'message.All' %>
     <% else %>
       <% if is_user? %>
         <% if @message.visible_to.count == 1 %>
-          Only you
+          <%= t 'message.Only_you' %>
         <% else %>
-          You and <%= @message.visible_to.count - 1 %> others
+          <%= t 'message.You_and_others', count: @message.visible_to.count - 1 %>
         <% end %>
       <% else %>
-        <%= pluralize(@message.visible_to.count, "user") %>
+        <%= t "user.users", count: @message.visible_to.count %>
       <% end %>
     <% end%>
   <% end %>
@@ -74,7 +74,7 @@
 
 <div class="actions">
   <% if %w(admin moderator).include? current_user.role %>
-    <%= link_to 'Edit Message', edit_message_path(@message), :class => "button_link" %>
+    <%= link_to t('message.Edit_Message'), edit_message_path(@message), :class => "button_link" %>
   <% end %>
-  <%= link_to 'Back to List', messages_path, :class => "button_link" %>
+  <%= link_to t('message.Back_to_List'), messages_path, :class => "button_link" %>
 </div>

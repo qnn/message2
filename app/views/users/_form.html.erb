@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :role %> <span class="required">*</span><br />
-    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, :selected => @user.role.presence || User::ROLES.last %>
+    <%= f.collection_select :role, User::ROLES, :to_s, :role_name, :selected => @user.role.presence || User::ROLES.last %>
   </div>
   <div class="field">
     <%= f.label :username %> <span class="required">*</span><br />
@@ -31,10 +31,10 @@
   <div class="actions">
     <%= f.submit %>
     <% if @user.id %>
-      <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
-      <%= link_to 'Back to User', @user, :class => "button_link" %>
+      <%= link_to t('Delete'), @user, method: :delete, data: { confirm: t("user.delete.confirm") }, :class => "button_link" %>
+      <%= link_to t('user.Back_to_User'), @user, :class => "button_link" %>
     <% end %>
-    <%= link_to 'Back to List', users_path, :class => "button_link" %>
-    <span class="required">*</span>: required
+    <%= link_to t('user.Back_to_List'), users_path, :class => "button_link" %>
+    <span class="required">*</span>: <%= t 'required' %>
   </div>
 <% end %>

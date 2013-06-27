@@ -1,14 +1,14 @@
-<h1>User details</h1>
+<h1><%= t 'user.User_Details' %></h1>
 
 <% @user.attributes.delete_if { |attr| attr == "encrypted_password" }.each do |(a, b)| %>
-<div class="field"><strong><%= a.humanize %>:</strong>
+<div class="field"><strong><%= t("helpers.label.user.#{a}") %>:</strong>
 <%= b.presence || "(n/a)" %></div>
 <% end %>
 
 <div class="separator"></div>
 
 <div class="actions">
-  <%= link_to 'Edit', edit_user_path(@user), :class => "button_link" %>
-  <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "button_link" %>
-  <%= link_to 'Back to List', users_path, :class => "button_link" %>
+  <%= link_to t('Edit'), edit_user_path(@user), :class => "button_link" %>
+  <%= link_to t('Delete'), @user, method: :delete, data: { confirm: t('user.delete.confirm') }, :class => "button_link" %>
+  <%= link_to t('user.Back_to_List'), users_path, :class => "button_link" %>
 </div>
