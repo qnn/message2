@@ -1,6 +1,8 @@
 message2
 ========
 
+[![Build Status](https://travis-ci.org/qnn/message2.png?branch=master)](https://travis-ci.org/qnn/message2)
+
 Message system in Rails.
 
 Features:
