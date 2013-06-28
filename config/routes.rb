@@ -16,6 +16,9 @@ Message2::Application.routes.draw do
     end
   end
   resources :users
+
+  # when visiting /messages/new, it will automatically redirect to root path,
+  # see messages#new in /app/controllers/messages_controller.rb
   root :to => "messages#new"
 
   # The priority is based upon order of creation:
