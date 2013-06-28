@@ -71,8 +71,7 @@ class MessagesController < ApplicationController
   # GET /messages/new.json
   def new
     # we don't want to use /messages/new, always use root path /
-    flash.keep
-    redirect_to root_path and return unless request.fullpath == root_path
+    flash.keep and redirect_to root_path and return unless request.fullpath == root_path
 
     @message = Message.new
     @show_editable_fields = true
