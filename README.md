@@ -13,6 +13,10 @@ Features:
 * 2-second rate limit on POST/PUT/DELETE action.
 * You can switch languages between English and Simplified Chinese.
 
+Please note that this repository is not being actively maintained.
+
+![message2](https://f.cloud.github.com/assets/1284703/2059858/726c56e4-8bde-11e3-8b46-9d614259b21c.png)
+
 How to use
 ----------
 
